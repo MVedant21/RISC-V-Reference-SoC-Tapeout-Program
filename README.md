@@ -9,8 +9,19 @@ The 4 major outputs i.e. the output of the "c"-code, the verilog code, the SoC o
 
 ## Yosys
 
+![Alt text](b.jpg)
+
+
 ## Iverilog
 
+![Alt text](c.jpg)
+
+
 ## GTKWave
+
+![Alt text](d.jpg)
+![Alt text](a.jpg)
+
+
 
 </details>
