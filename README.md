@@ -1,7 +1,7 @@
 # RISC-V-Reference-SoC-Tapeout-Program
 
 <details>
-<summary><b># Day 0 - Tools Installation</b></summary>
+<summary><b> Day 0 - Tools Installation</b></summary>
 
 Understanding the flow of the tapeout program.  
 
