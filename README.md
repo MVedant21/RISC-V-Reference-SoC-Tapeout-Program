@@ -20,7 +20,7 @@ The 4 major outputs i.e. the output of the "c"-code, the verilog code, the SoC o
 ## GTKWave
 
 ![Alt text](d.jpg)
-![Alt text](a.jpg)
+![Alt text](e.jpg)
 
 
 
