@@ -48,16 +48,37 @@ sudo apt install gtkwave
 <details>
 <summary><b> Day 1 - Introduction to Verilog RTL Design and Synthesis</b></summary>
 
+## Introduction to open-source simulator Iverilog
+
 RTL design is simulated to check for its adherence wrt to the spec. To simulate we use Iverilog.
 
 We use a testbench to instantiate the values for the Verilog code variables which is given as input to check for both the verilog code simulation as well as for the netlist.
-
-Output of iverilog is vcd file which is given as input to gtkwave. 
 
 Folder structure of the git clone:
 
 - `lib` - contains sky130 standard cell library
 - `my_lib/verilog_models` - contains all the standard cells verilog model
 - `verilog_files` - contains the lab experiments source files
+
+Command to run the design and testbench
+
+```
+iverilog good_mux.v tb_good_mux.v
+```
+
+Output of iverilog is vcd file which is given as input to gtkwave. A a.out file is created, executing which the iverilog dumps the vcd file.
+
+## Introduction to GTKWave
+
+gtkwave is used to display the waveforms, giving the vcd file as the input.
+
+Command to view the vcd file in gtkwave
+
+```
+gtkwave tb_good_mux.vcd
+```
+The image below shows the waveform generated.
+![Alt text](d.jpg)
+
 
 </details>
