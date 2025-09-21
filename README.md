@@ -48,4 +48,12 @@ sudo apt install gtkwave
 <details>
 <summary><b> Day 1 - Introduction to Verilog RTL Design and Synthesis</b></summary>
 
+RTL design is simulated to check for its adherence wrt to the spec. To simulate we use Iverilog.
+
+We use a testbench to instantiate the values for the Verilog code variables which is given as input to check for both the verilog code simulation as well as for the netlist.
+
+Output of iverilog is vcd file which is given as input to gtkwave. 
+
+
+
 </details>
