@@ -75,10 +75,12 @@ gtkwave is used to display the waveforms, giving the vcd file as the input.
 Command to view the vcd file in gtkwave
 
 ```
+./a.out
 gtkwave tb_good_mux.vcd
 ```
 The image below shows the waveform generated.
 ![Alt text](1.a.jpg)
+
 
 ## Introduction to Yosys
 
@@ -88,13 +90,25 @@ Yosys is a synthesizer which converts the RTL code to gate-level netlist. The ve
 
 The images below show the hierarchy of the commands used to generate the netlist. It starts with syntax checking and analysing the verilog code and mapping it to general gates. Then we map the boolean logic to standard cells from the .lib file.
 
+Be in the verilog_codes directory and follow the below commands
+
+```
+yosys
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog good_mux.v
+synth -top good_mux.v
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+
 ![Alt text](1.b.jpg)
 ![Alt text](1.c.jpg)
+![Alt text](1.e.jpg)
 ![Alt text](1.d.jpg)
 
 The below image shows the generated netlist as the output of the synthesis procedure.
-![Alt text](1.e.jpg)
 
+![Alt text](1.g.jpg)
 
 
 </details>
