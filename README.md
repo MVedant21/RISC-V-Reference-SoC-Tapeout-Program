@@ -54,6 +54,10 @@ We use a testbench to instantiate the values for the Verilog code variables whi
 
 Output of iverilog is vcd file which is given as input to gtkwave. 
 
+Folder structure of the git clone:
 
+- `lib` - contains sky130 standard cell library
+- `my_lib/verilog_models` - contains all the standard cells verilog model
+- `verilog_files` - contains the lab experiments source files
 
 </details>
