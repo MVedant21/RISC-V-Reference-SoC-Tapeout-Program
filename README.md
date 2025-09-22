@@ -118,6 +118,9 @@ write_verilog <module_name>
 </details>
 
 
+
+
+
 <details>
 <summary><b> Day 2 - Timing libs, Hierarchical vs Flat Synthesis and Efficient Flop Coding Styles</b></summary>
 
@@ -129,6 +132,10 @@ The below image shows the PVT constraints:
 - tt stands for typical in the .lib name
 - 025C stands for temperature of 25 C in the .lib name
 - 1v80 stands for voltage of 1.8V in the .lib name
+
+```
+!vim ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
 
 ![Alt text](2.a.jpg)
 
