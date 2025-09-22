@@ -146,15 +146,53 @@ Same cell(same logic functionality) will have different types, having different 
 
 ### Hierarchical Synthesis
 
-
 The image below shows the report of synthesising the multiple_modules.v. The code has both the sub-modules instantiated.
 
 ![Alt text](2.e.jpg)
 
-
 We can see both the sub-modules- the And gate and the Or gate have been instantiated differently. Rather than seeing AND or OR gate, we see sub_modules when we run the command 'show' as shown in the screenshot. Basically, the hierarchy is preserved. This is an example of Hierarchical Synthesis.
 
 ![Alt text](2.b.jpg)
+
+If we look into the sub_module2 in synthesized netlist 'multiple_modules_hier.v', we see that rather than OR gate, the inputs a & b, pass through the inverter and then NAND gate. It is because in CMOS, stacking PMOS, which happens in 'OR' gate is bad as PMOS has lower mobility than NMOS, which is stacked in NAND gate, and always have to be wider to get some meaningful output. One can also say that the charing and dishcharging is faster in a NANd gate compared to NOR or other gates. The next step is to check .lib file for the answer.
+
+
+### Flat Synthesis
+
+The design can be flattened by using the command `flatten`.
+
+The image below shows the code along with the generated netlist and the logical diagram output. Here one can see that the submodules aren not instantiated. Rather the gates have been instantiated in the logical diagram along with the module names. This proves that flattening has broken down the hierarchy.
+
+![Alt text](2.c.jpg)
+
+
+### Sub-module Level Synthesis
+
+RTL (Register Transfer Level) designs are often modular, with various functional blocks or sub-modules. Sub-module level synthesis allows each of these sub-modules to be synthesized independently.
+
+Sub-module level synthesis is necessary for the following reasons:-
+- Optimization and Area Reduction: By synthesizing sub-modules separately, the synthesis tool can optimize each one individually. It performs logic optimization, technology mapping, and area minimization for each sub-module. This leads to more efficient use of resources and reduced overall chip area.
+- Reusability: When we have multiple instances of the same module, synthesizing one will save resources and time.
+- Parallel Processing: To divide and conquer i.e. it is more efficient to synthesise each module concurrently when the design is massive. It helps reduce the TAT.
+
+The commands to run sub-module synthesis:
+
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog multiple_modules.v
+synth -top sub_module1
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+
+The image below shows the synthesis of the sub-module1. 
+
+![Alt text](2.d.jpg)
+
+
+
+## Various Flop Coding Styles and Optimization
+
 
 
 
