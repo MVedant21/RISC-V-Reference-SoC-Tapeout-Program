@@ -200,7 +200,19 @@ The image below shows the synthesis of the sub-module1.
 
 ## Various Flop Coding Styles and Optimization
 
+### How to prevent glitches in the circuit? How do flip-flops help here?
 
+Glitches can occur in digital circuits due to various reasons such as signal delays, noise, or timing issues. Flops prevent glitches during the operation in the following ways:
+
+- Synchronization: Flops are edge-triggered devices, meaning they respond only to transitions of the input signal (e.g., rising edge, falling edge). This synchronization ensures that the output changes only at specific points, reducing the likelihood of glitches caused by transient signal variations.
+- Timing Control: Flops are typically controlled by a clock signal, ensuring that all circuit operations occur synchronously. This eliminates timing issues that could lead to glitches due to data arriving at different times.
+
+
+### Different types of FLops:
+
+The type of flop changes on the basis of the set-reset signals and their usage.
+The image below shows the codes of different type of flops,
+![Alt text](2.f.jpg)
 
 
 </details>
