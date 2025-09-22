@@ -211,7 +211,9 @@ Glitches can occur in digital circuits due to various reasons such as signal del
 ### Different types of FLops:
 
 The type of flop changes on the basis of the set-reset signals and their usage.
-The image below shows the codes of different type of flops,
+
+The image below shows the codes of different type of flops.
+
 ![Alt text](2.f.jpg)
 
 
