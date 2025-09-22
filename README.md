@@ -106,7 +106,12 @@ show
 ![Alt text](1.e.jpg)
 ![Alt text](1.d.jpg)
 
-The below image shows the generated netlist as the output of the synthesis procedure.
+The below image shows the generated netlist as the output of the synthesis procedure and to do that follow the below code.
+
+```
+write_verilog <module_name>
+!vim <module_name>
+```
 
 ![Alt text](1.g.jpg)
 
