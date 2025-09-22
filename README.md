@@ -110,5 +110,31 @@ The below image shows the generated netlist as the output of the synthesis proce
 
 ![Alt text](1.g.jpg)
 
+</details>
+
+
+<details>
+<summary><b> Day 2 - Timing libs, Hierarchical vs Flat Synthesis and Efficient Flop Coding Styles</b></summary>
+
+## Introduction to timing .lib
+
+Libraries are defined on the basis of PVT contraints (P-process, V-voltage, T-temperature).
+
+The below image shows the PVT constraints:
+- tt stands for typical in the .lib name
+- 025C stands for temperature of 25 C in the .lib name
+- 1v80 stands for voltage of 1.8V in the .lib name
+
+![Alt text](2.a.jpg)
+
+'-cell' marks the start of the cell. It consists of different characteristics of the cell as mentioned below:
+- Area
+- Power associated with pin
+- Width
+- Delay
+- Input capacitance
+- Transition
+
+Same cell(same logic functionality) will have different types, having different characteristics in terms of area and other parameters.
 
 </details>
