@@ -142,4 +142,12 @@ The below image shows the PVT constraints:
 
 Same cell(same logic functionality) will have different types, having different characteristics in terms of area and other parameters.
 
+## Hierarchical vs Flat Synthesis
+
+### Hierarchical Synthesis
+
+The image below shows the report of synthesising the multiple_modules.v. We can see both the sub-modules- the And gate and the Or gate have been instantiated differently. This is an example of Hierarchical Synthesis.
+
+
+
 </details>
