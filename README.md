@@ -146,7 +146,15 @@ Same cell(same logic functionality) will have different types, having different 
 
 ### Hierarchical Synthesis
 
-The image below shows the report of synthesising the multiple_modules.v. We can see both the sub-modules- the And gate and the Or gate have been instantiated differently. This is an example of Hierarchical Synthesis.
+
+The image below shows the report of synthesising the multiple_modules.v. The code has both the sub-modules instantiated.
+
+![Alt text](2.e.jpg)
+
+
+We can see both the sub-modules- the And gate and the Or gate have been instantiated differently. Rather than seeing AND or OR gate, we see sub_modules when we run the command 'show' as shown in the screenshot. Basically, the hierarchy is preserved. This is an example of Hierarchical Synthesis.
+
+![Alt text](2.b.jpg)
 
 
 
