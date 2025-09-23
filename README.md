@@ -259,5 +259,5 @@ To implement `y[3:0] = 2*a[2:0]`, we append a `1'b0` to the `a[2:0]` i.e, `y[3:0
 
 ![Alt text](2.m.jpg)
 
-
+The multiply by 2 and multiply by 9 are special cases of synthesis, which post synthesis donot use any registers.
 </details>
