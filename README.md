@@ -261,3 +261,175 @@ To implement `y[3:0] = 2*a[2:0]`, we append a `1'b0` to the `a[2:0]` i.e, `y[3:0
 
 The multiply by 2 and multiply by 9 are special cases of synthesis, which post synthesis donot use any registers.
 </details>
+
+
+
+
+
+
+<details>
+<summary><b> Day 3 - Combinational and Sequential Optimizations</b></summary>
+
+## Introduction to Optimizations
+
+### Combinational Logic Optimization
+
+It means squeezing the logic to get the most optimized design in terms of area and power. the most commonly used techniques are:
+- Constant propagation using direct optimization
+- Boolean logic optimization using K-map(<5 variables) and Quine McKlusky(>5 variables)
+
+The image below is an example of constant propogation.
+
+![Alt text](3.0.jpg)
+
+The image below is an example of boolean logic optimization.
+
+![Alt text](3.1.jpg)
+
+
+### Sequential Logic Optimization
+
+The technqiues used are:
+
+1) Basic
+- Sequential constant propagation
+2) Advanced 
+- Static optimization
+- Retiming
+- Sequential logic cloning (floorplan aware synthesis)
+
+An example of sequential constant propagation is of DFF with asynchronous reset where D input is grounded. Here one can just conclude `y = 1`. 
+
+To note, the same technique cannot be applied to DFF with the asynchronous set because while `Q=1` when `Set=1`, but `Q=0` at `Set=0` at the next CLK pulse. Q is dependent not only on Set but also on the clock edge.
+
+Retiming is a technique to improve the performance of the circuit. Here one can switch the logical implementation circuit between FFs to next/prior set of FFs in order to increase the performance of the circuit.
+
+
+## Combinational Logic Optimizations
+
+Command used for optimization:
+```
+opt_clean -purge
+```
+
+### Optimization of opt_check.v
+
+Code
+```
+module opt_check (input a , input b , output y);
+        assign y = a?b:0;
+endmodule
+```
+
+For opt_check.v the assignment `y = a?b:0` reduces to `y = ab`. 
+
+The logic implementation after synthesis for opt_check.v is shown below, showing only AND gate.
+
+![Alt text](3.2.jpg)
+
+
+### Optimization of opt_check2.v
+
+Code
+```
+module opt_check2 (input a , input b , output y);
+        assign y = a?1:b;
+endmodule
+```
+
+For opt_check2.v the assignment `y = a?1:b` reduces to `y = a+b`. 
+
+The logic implementation after synthesis for opt_check2.v is shown below, showing only OR gate.
+
+![Alt text](3.3.jpg)
+
+
+### Optimization of opt_check3.v
+
+Code
+```
+module opt_check3 (input a , input b, input c , output y);
+	       assign y = a?(c?b:0):0;
+endmodule
+```
+
+For opt_check3.v the assignment `y = a?(c?b:0):0` reduces to `y = a+b`. 
+
+The logic implementation after synthesis for opt_check3.v is shown below, showing 3 input AND gate.
+
+![Alt text](3.4.jpg)
+
+
+### Optimization of opt_check4.v
+
+Code
+```
+module opt_check3 (input a , input b, input c , output y);
+	       assign y = a?(b?c:(c?a:0)):(!c);
+endmodule
+```
+
+For opt_check4.v the assignment `y = a?(b?c:(c?a:0)):(!c)` reduces to `y = a xnor b`. 
+
+The logic implementation after synthesis for opt_check4.v is shown below, showing 3 input AND gate.
+
+![Alt text](3.5.jpg)
+
+
+### Optimization of multiple_module_opt.v
+
+Code
+```
+module sub_module1(input a , input b , output y);
+ assign y = a & b;
+endmodule
+
+module sub_module2(input a , input b , output y);
+ assign y = a^b;
+endmodule
+
+module multiple_module_opt(input a , input b , input c , input d , output y);
+wire n1,n2,n3;
+
+sub_module1 U1 (.a(a) , .b(1'b1) , .y(n1));
+sub_module2 U2 (.a(n1), .b(1'b0) , .y(n2));
+sub_module2 U3 (.a(b), .b(d) , .y(n3));
+
+assign y = c | (b & n1); 
+endmodule
+```
+
+For multiple_module_opt.v the boolean logic reduces to `y = c | (a & b)`. 
+
+The logic implementation after synthesis for multiple_module_opt.v is shown below.
+
+![Alt text](3.6.jpg)
+
+
+### Optimization of multiple_module_opt2.v
+
+Code
+```
+module sub_module1(input a , input b , output y);
+ assign y = a & b;
+endmodule
+
+module multiple_module_opt(input a , input b , input c , input d , output y);
+wire n1,n2,n3;
+
+sub_module1 U1 (.a(a) , .b(1'b0) , .y(n1));
+sub_module1 U2 (.a(b), .b(c) , .y(n2));
+sub_module1 U3 (.a(n2), .b(d) , .y(n3));
+sub_module1 U4 (.a(n3), .b(n1) , .y(y));
+
+endmodule
+```
+
+For multiple_module_opt.v the boolean logic reduces to `y = 1'b0`. 
+
+The logic implementation after synthesis for multiple_module_opt.v is shown below.
+
+![Alt text](3.7.jpg)
+
+
+</details>
