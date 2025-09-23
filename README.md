@@ -238,7 +238,8 @@ show
 
 ![Alt text](2.i.jpg)
 
-On synthesizing DFF with synchronous reset we get NOR gate with inverted d as shown in the image below. However,on evaluating the boolean expression, we reach the same logic realization.
+On synthesizing DFF with synchronous reset we get NOR gate with inverted d as shown in the image below. However, on evaluating the boolean expression, we reach the same logic realization. 
+The flow of commands remains the same. Just have to change the name of the file accordingly.
 
 ![Alt text](2.k.jpg)
 
