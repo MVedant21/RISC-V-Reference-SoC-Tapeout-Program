@@ -220,6 +220,9 @@ The image below shows DFF with asynchronous reset HDL simulation in Iverilog and
 
 ![Alt text](2.g.jpg)
 
+The image below shows DFF with asynchronous set HDL simulation in Iverilog and waveform display in GTKwave. Irrespective of the clock and d, as soon as async_set=1, q=1.
+
+![Alt text](2.h.jpg)
 
 ### Synthesis of Flops
 
@@ -232,8 +235,6 @@ dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 show
 ```
-
-![Alt text](2.h.jpg)
 
 On synthesizing DFF with synchronous reset we get NOR gate with inverted d as shown in the image below. However,on evaluating the boolean expression, we reach the same logic realization.
 
