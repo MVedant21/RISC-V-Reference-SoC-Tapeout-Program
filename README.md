@@ -236,14 +236,11 @@ abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 show
 ```
 
-On synthesizing DFF with synchronous reset we get NOR gate with inverted d as shown in the image below. However,on evaluating the boolean expression, we reach the same logic realization.
-
 ![Alt text](2.i.jpg)
 
+On synthesizing DFF with synchronous reset we get NOR gate with inverted d as shown in the image below. However,on evaluating the boolean expression, we reach the same logic realization.
 
-The screenshot below shows DFF with asynchronous reset HDL simulation in Iverilog and waveform display in GTKwave. Irrespective of the clock and d, as soon as async_reset=1, q=0.
-
-
+![Alt text](2.k.jpg)
 
 ![Alt text](2.j.jpg)
 
@@ -252,14 +249,14 @@ The screenshot below shows DFF with asynchronous reset HDL simulation in Iverilo
 
 To implement `y[3:0] = 2*a[2:0]`, we append a `1'b0` to the `a[2:0]` i.e, `y[3:0] = {a[2:0],0}`. This is also equal to left shift the input bits by 1. This can be realized by just wiring. So we expect no hardware which is also seen in the screenshot below, analysis after synthesis and show. The command 'abc' is not required for mapping when there are no cells.
 
-![Alt text](2.k.jpg)
+![Alt text](2.l.jpg)
 
 ## Synthesizing mult9 (multiply by 9)
 
 `y=9*a` can be considered `8*a+1*a` To implement `y[5:0] = 9*a[2:0]`, we append 000 to a[2:0] and then add a i.e, `y[5:0] = {a[2:0],000} + a[2:0]`. This can be realized just by wiring. So we expect no hardware which is also seen in the screenshot below, analysis after synthesis and show. The command 'abc' is not required for mapping when there are no cells.
 
 
-![Alt text](2.l.jpg)
+![Alt text](2.m.jpg)
 
 
 </details>
