@@ -450,7 +450,9 @@ end
 endmodule
 ```
 
-For dff_const1.v, `q=0` as long as `reset=1`. However, when `reset=0` `q` doesn't immediately becomes `1` rather at the next rising edge of the clk as shown below. So the optimization cannot be applied.
+For dff_const1.v, `q=0` as long as `reset=1`. However, when `reset=0` `q` doesn't immediately becomes `1` rather at the next rising edge of the clk as shown below. So the optimization cannot be applied. 
+
+The image below shows the gtkwave output and the code to run the gtkwave is the same as before.
 
 ![Alt text](3.8.jpg)
 
@@ -531,6 +533,8 @@ endmodule
 
 For dff_const3.v, there are two flops. `q1=0` as long as `reset=1`. However, when `reset=0` `q1` doesn't immediately become `1`, rather at the next rising edge of the clk with some propagation delay as shown below. `q=1` as long as `reset=1`, acting as set rather than reset. However, when `reset=0`, `q` samples `q1` as `0` as there are some propagation delay for q1as shown below. At the next clk edge `q` samples `q1` as `1`. So the optimization cannot be applied.
 
+The image below shows the gtkwave output and the code to run the gtkwave is the same as before.
+
 ![Alt text](3.11.jpg)
 
 Below are the commmands to run synthesis.
@@ -547,6 +551,67 @@ show
 The logic implementation after synthesis for dff_const3.v is shown below.
 
 ![Alt text](3.12.jpg)
+
+
+
+## Sequential Optimzations for Unused Outputs
+
+### Optimization of Case1: 3-bit Up Counter with q[0] used (counter_opt.v)
+
+Example of a counter where bits at the position of [2] and [1] are unused.
+
+Code
+```
+module counter_opt (input clk , input reset , output q);
+reg [2:0] count;
+assign q = count[0];
+
+always @(posedge clk ,posedge reset)
+begin
+	if(reset)
+		count <= 3'b000;
+	else
+		count <= count + 1;
+end
+
+endmodule
+```
+The commands to run synthesis remain the same as done for the DFF modules.
+
+We see only one flop after the synthesis and is also seen in synthesis report after `synth -top counter_opt.v`.
+
+![Alt text](3.13.jpg)
+
+
+### Optimization of Case2: 3-bit Up Counter (counter_opt2.v)
+
+Example of a counter where all bits are used.
+
+Code
+```
+module counter_opt (input clk , input reset , output q);
+reg [2:0] count;
+assign q = (count[2:0] == 3'b100);
+
+always @(posedge clk ,posedge reset)
+begin
+	if(reset)
+		count <= 3'b000;
+	else
+		count <= count + 1;
+end
+
+endmodule
+```
+The commands to run synthesis remain the same as done for the DFF modules.
+
+We see three flop after the synthesis and is also seen in synthesis report after `synth -top counter_opt.v`.
+
+![Alt text](3.13.jpg)
+
+![Alt text](3.14.jpg)
+
+
 
 
 </details>
