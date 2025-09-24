@@ -607,9 +607,9 @@ The commands to run synthesis remain the same as done for the DFF modules.
 
 We see three flop after the synthesis and is also seen in synthesis report after `synth -top counter_opt.v`.
 
-![Alt text](3.13.jpg)
-
 ![Alt text](3.14.jpg)
+
+![Alt text](3.15.jpg)
 
 
 
