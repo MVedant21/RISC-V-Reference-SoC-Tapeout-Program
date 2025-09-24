@@ -612,6 +612,99 @@ We see three flop after the synthesis and is also seen in synthesis report after
 ![Alt text](3.15.jpg)
 
 
+</details>
+
+
+
+
+
+<details>
+<summary><b> Day 4 - GLS, Blocking vs Non-blocking and Synthesis-Simulation Mismatch</b></summary>
+
+## GLS, Synthesis-Simulation Mismatch, and Blocking/Non-blocking Statements
+
+### Why is Gate Level Simulation (GLS) necessary?
+
+- Verify the correctness of the design after synthesis
+- Ensure the timing of the design is met which is done with delay annotation (timing aware)
+
+So, essentially we are simulating the verilog file and the netlist file to ensure that the functionality is preserved. GTKwave is used to simulate the waveforms for both.
+
+
+### Synthesis Simulation Mismatches
+It happens because of the following reasons:
+- Missing sensitivity list
+- Blocking vs non-blocking assignments
+- Non-standard verilog coding
+
+
+(1) Missing sensitivity list
+
+Consider 2 cases where one is trying to implement a mux. The inputs are `i0` and `i1`. In case one the sensitivity list contains `sel`, whereas the other contains `*`. For case-1 always block is evaluated only when `sel` is changing. So output `y` is not evaluated when `sel` is not changing although `i0` and `i1` are changing. Rather it acts like a latch as the output is latched onto the input `sel` changes. The case 2 represents the correct design coding for mux as its sensitive to sel and both inputs. In this case always is evaluated for any signal changes.
+
+
+(2) Blocking vs Non-blocking Assignments
+
+Blocking Statements
+- Represented by `=`.
+- Executes the statements in the order it is written inside always block.
+- So the first statement is evaluated before the second statement.
+
+Non-Blocking Statements
+- Represented by `<=`.
+- Executes all the RHS when always block is entered and assigns to LHS.
+- Parallel execution.
+
+
+Ex1:
+
+The left side of the code below gives us the correct execution. While the right side can lead to serious issues as `d` is assigned to `q` directly. So choosing non-blocking statements is best practice.
+
+```
+module code_blocking (input clk, input reset,	 module code_blocking (input clk, input reset,	
+                      input d,										  input d,					
+                      output reg q);							      output reg q);			
+  reg q0;											reg q0;										
+  always @(posedge clk, posedge reset) begin		always @(posedge clk, posedge reset) begin	
+    if (reset) begin								  if (reset) begin							
+      q0 = 1'b0;										 q0 = 1'b0;								
+      q  = 1'b0;										 q  = 1'b0;								
+    end												  end											
+    else begin										  else begin									
+      q  = q0;   										 q0 = d;
+      q0 = d;											 q  = q0;									
+    end											      end
+  end												 end
+endmodule										 endmodule
+```
+
+
+Ex2:
+
+Blocking Statements Leading to Synthesis Simulation Mismatch.
+
+In the code shown below, `y` gets the old `q0` value. This will mimic delay or flop. But when you synthesize, there will be no flop. If the order is changed (right side code), latest value of `q0` is assigned to `y`.
+
+When synthesized, both will lead to the same circuit. However, simulation will result in different behavior. For the left side of the code, `y` gets the old `q0` value and for the right side of the code, `y` gets the latest `q0` value leading to a synthesis simulation mismatch.
+
+This issue is resolved by using non-blocking statements.
+
+```
+module code (input a, b, c,		 	module code (input a, b, c,					
+             output reg y);						 output reg y);
+
+  reg q0;							  reg q0;
+
+  always @(*) begin					  always @(*) begin
+    y  = q0 & c;   						q0 = a | b;
+    q0 = a | b;   						y  = q0 & c;
+  end								  end
+
+endmodule						    endmodule
+
+```
 
 
 </details>
+
+
