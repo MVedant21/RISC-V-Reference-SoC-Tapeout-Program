@@ -705,6 +705,69 @@ endmodule						    endmodule
 ```
 
 
+## Labs on GLS and Synthesis-Simulation Mismatch
+
+### Ternary operator MUX (ternary_operator_mux.v)
+
+Code
+```
+
+```
+
+
+
+## Labs on Synthesis-Simulation Mismatch for Blocking Statements
+
+### Blocking Caveat (blocking_caveat.v)
+
+Code
+```
+module blocking_caveat (input a , input b , input  c, output reg d); 
+reg x;
+always @ (*)
+begin
+	d = x & c;
+	x = a | b;
+end
+endmodule
+```
+
+Command to run the simulation using gtkwave remains the same, just change the verilog file names.
+
+HDL Simulation waveform of blocking_caveat.v is shown in the screenshot below. `d` takes the old value of `x` causing incorrect functionality.
+
+![Alt text](4.1.jpg)
+
+Below are the commands to run the synthesis for blocking_caveat.v.
+
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog blocking_caveat.v
+synth -top blocking_caveat
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+write_verilog blocking_caveat_net.v
+```
+
+The synthesis report and logic synthesis is shown below.
+
+![Alt text](4.2.jpg)
+
+The commands to do GLS for blocking_caveat.v
+
+```
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v blocking_caveat_net.v tb_blocking_caveat.v
+./a.out
+gtkwave tb_blocking_caveat.vcd
+```
+
+The GLS output is shown below. In this case, `d` takes the current value of `x` causing incorrect functionality.The waveform shows correct functionality which is different from HDL simulation, leading to synthesis simulation mismatch.
+
+![Alt text](4.3.jpg)
+
+
+
+
 </details>
 
 
