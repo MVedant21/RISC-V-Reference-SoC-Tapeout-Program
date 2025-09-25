@@ -611,8 +611,9 @@ We see three flop after the synthesis and is also seen in synthesis report after
 
 ![Alt text](3.15.jpg)
 
-
 </details>
+
+
 
 
 
@@ -711,8 +712,93 @@ endmodule						    endmodule
 
 Code
 ```
+module ternary_operator_mux (input i0 , input i1 , input sel , output y);
+	assign y = sel?i1:i0;
+endmodule
+```
+
+Command to run the simulation using gtkwave remains the same, just change the verilog file names.
+
+HDL Simulation waveform of ternary_operator_mux.v is shown in the image below.
+
+![Alt text](4.4.jpg)
+
+The commands to run the synthesis for ternary_operator_mux.v
 
 ```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog ternary_operator_mux.v
+synth -top ternary_operator_mux
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+write_verilog ternary_operator_mux_net.v
+```
+
+![Alt text](4.5.jpg)
+
+The commands to do GLS for ternary_operator_mux.v
+
+```
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v ternary_operator_mux_net.v tb_ternary_operator_mux.v
+./a.out
+gtkwave tb_ternary_operator_mux.vcd
+```
+
+The GLS output is shown below.
+
+![Alt text](4.6.jpg)
+
+
+### Bad MUX (bad_mux.v)
+
+The `always` block is executed only at `sel` signal. It works like a flop rather than mux. The Verilog code of bad_mux.v
+
+Code
+```
+module bad_mux (input i0 , input i1 , input sel , output reg y);
+always @ (sel)
+begin
+	if(sel)
+		y <= i1;
+	else 
+		y <= i0;
+end
+endmodule
+```
+
+Command to run the simulation using gtkwave remains the same, just change the verilog file names.
+
+HDL Simulation waveform of bad_mux.v is shown in the image below.
+
+![Alt text](4.7.jpg)
+
+The commands to run the synthesis for bad_mux.v.
+
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog bad_mux.v
+synth -top bad_mux
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+write_verilog bad_mux_net.v
+```
+
+The synthesis report shows it is still inferring the mux but not the flop.
+
+![Alt text](4.8.jpg)
+
+The commands to do GLS for bad_mux.v
+
+```
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v bad_mux_net.v tb_bad_mux.v
+./a.out
+gtkwave tb_bad_mux.vcd
+```
+
+The GLS output is shown below. This shows correct functionality which is different from HDL simulation, leading to synthesis simulation mismatch.
+
+![Alt text](4.9.jpg)
+
 
 
 
