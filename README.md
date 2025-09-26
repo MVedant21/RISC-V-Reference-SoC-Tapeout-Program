@@ -1043,9 +1043,170 @@ The image below shows the output of synthesis.
 ![Alt text](5.7.jpg)
 
 
+
 ## Labs on Incomplete overlapping Case
 
+### Incomplete case (incomp_case.v)
 
+Code
+```
+module incomp_case (input i0, input i1, input i2, input [1:0] sel, output reg y);
+  
+  always @ (*) begin
+    case (sel)
+      2'b00: y = i0;
+      2'b01: y = i1;
+    endcase
+  end
+
+endmodule
+```
+
+The image below shows the simulation.
+
+![Alt text](5.8.jpg)
+
+Commands to run synthesis.
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog incomp_case.v
+synth -top incomp_case
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+
+Latch is inferred for both the cases 2 and 3. The enable of the latch is `sel[1]` as its common for both cases. The input to the latch is the combinational logic between `i0` and `i1`. `i2` is not required at all. Mux is used to choose between `i0` and `i1`. 
+
+The image below shows the synthesis output.
+
+![Alt text](5.9.jpg)
+
+
+### Complete case (comp_case.v)
+
+Code
+```
+module incomp_case (input i0, input i1, input i2, input [1:0] sel, output reg y);
+  
+  always @ (*) begin
+    case (sel)
+      2'b00: y = i0;
+      2'b01: y = i1;
+    endcase
+  end
+
+endmodule
+```
+
+The image below shows the simulation.
+
+![Alt text](5.10.jpg)
+
+Commands to run synthesis.
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog comp_case.v
+synth -top comp_case
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+
+Latch is not inferred here as all cases are considered.
+The image below shows the synthesis output.
+
+![Alt text](5.11.jpg)
+
+
+
+### Partial case (partial_case_assign.v)
+
+Code
+```
+module partial_case_assign (input i0, input i1, input i2, input [1:0] sel, output reg y, output reg x);
+
+  always @ (*) begin
+    case (sel)
+      2'b00: begin
+        y = i0;
+        x = i2;
+      end
+      2'b01: y = i1;
+      default: begin
+        x = i1;
+        y = i2;
+      end
+    endcase
+  end
+
+endmodule
+
+```
+
+Commands to run synthesis.
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog partial_case_assign.v
+synth -top partial_case_assign
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+
+Latch is inferred here as one case does not assign value to `y`.  Mux is used to choose between i0 and i1 where `sel = sel1 + sel0'`
+The image below shows the synthesis output.
+
+![Alt text](5.12.jpg)
+
+
+### Bad case (bad_case.v)
+
+Code
+```
+module bad_case (input i0, input i1, input i2, input i3, input [1:0] sel, output reg y);
+
+always @(*)
+begin
+    case (sel)
+        2'b00: y = i0;
+        2'b01: y = i1;
+        2'b10: y = i2;
+        2'b1?: y = i3;
+    endcase
+end
+
+endmodule
+```
+
+For the case `2'b1?`, the tool gets confused and latches the output to `1'b1` until this case if finished. This leads to ambiguity.
+The image below shows the simulation.
+
+![Alt text](5.13.jpg)
+
+Commands to run synthesis.
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog bad_case.v
+synth -top bad_case
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+write_verilog bad_case_net.v
+show
+```
+
+The image below shows the synthesis output. No latches will be inferred as all cases are covered, although overlap of cases is there.
+
+![Alt text](5.14.jpg)
+
+Command to run simulation for GLS.
+
+```
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v bad_case.v tb_bad_case.v
+./a.out
+gtkwave tb_bad_case.vcd
+```
+
+For the case `2'b1?`, the output follows `i3`. Conclusion is that the cases should be mutually exclusive to avoid ambuguity in the post synthesis and pre synthesis simulation.
+Image below shows post synthesis simulation.
+
+![Alt text](5.15.jpg)
 
 
 </details>
