@@ -1198,7 +1198,7 @@ The image below shows the synthesis output. No latches will be inferred as all c
 Command to run simulation for GLS.
 
 ```
-iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v bad_case.v tb_bad_case.v
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v bad_case_net.v tb_bad_case.v
 ./a.out
 gtkwave tb_bad_case.vcd
 ```
@@ -1207,6 +1207,99 @@ For the case `2'b1?`, the output follows `i3`. Conclusion is that the cases shou
 Image below shows post synthesis simulation.
 
 ![Alt text](5.15.jpg)
+
+
+## For loop and For-Generate
+
+### For loop 
+
+Code
+```
+always @(*) begin
+	MUX_OUT = 1'b0; 
+	integer i; 
+	for (i = 0; i < 32; i = i + 1) begin
+		if (SELECT == i) begin
+			MUX_OUT = DATA_IN[i];
+		end
+	end
+end
+```
+
+Used inside `always` block for multiple evaluations. Like in the above code its used to produce a `32:1 mux` using blocking statements to ensure appropriate flow. Similarly, it can be used for other designs like demux, etc.
+
+
+### For-Generate loop
+
+Code
+```
+generate
+	genvar i; 
+	for (i = 0; i < N; i = i + 1) begin : bitwise_and_instance
+		
+		single_AND u_and (.a (A[i]), .b (B[i]), .y (Y_OUT[i]));
+	end
+endgenerate
+```
+
+Always used outside the `always` block. Its used to instantiate or replicate hardware. As in the above example its instantiating `N and` gates with inputs from `bus A and B`.
+Same can be used for other purposed like Ripple Carry Adder, etc.
+
+
+
+## Labs on For Loop
+
+### Mux generation (mux_generate.v)
+
+Code
+```
+module mux_generate (input i0, input i1, input i2, input i3, input [1:0] sel, output reg y);
+    wire [3:0] i_int;
+    assign i_int = {i3, i2, i1, i0}; 
+    integer k; 
+    
+    always @ (*) begin
+        y = 1'b0; 
+        for (k = 0; k < 4; k = k + 1) begin
+			if (k == sel) 
+				y = i_int[k];
+        end
+    end
+endmodule
+```
+
+The image below shows the simulation.
+
+![Alt text](5.16.jpg)
+
+Commands to run synthesis.
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog mux_generate.v
+synth -top mux_generate
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+write_verilog mux_generate_net.v
+show
+```
+
+As expected we get the `4:1 mux` generated along with a latch to store the output of the mux in the variable `y`.
+The image below shows the synthesis output.
+
+![Alt text](5.17.jpg)
+
+Command to run simulation for GLS.
+
+```
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v mux_generate_net.v tb_mux_generate.v
+./a.out
+gtkwave tb_mux_generate.vcd
+```
+
+The image below shows the post synthesis simulation. The simulation matches the pre-synthesis simulation.
+
+![Alt text](5.18.jpg)
+
+
 
 
 </details>
