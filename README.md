@@ -973,4 +973,79 @@ case (sel) begin  #(sel is 2 bit reg)
 ```
 
 
+## Labs on Incomplete If
+
+### Incomplete If-1 (incomp_if.v)
+
+Code
+```
+module incomp_if (input i0, input i1, input i2, output reg y);
+  always @ (*)
+  begin
+    if (i0)
+      y <= i1;
+  end
+endmodule
+```
+
+The image below shows the simulation.
+
+![Alt text](5.4.jpg)
+
+Commands to run synthesis.
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog incomp_if.v
+synth -top incomp_if
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+
+Latch is inferred, as else condition is not mentioned. The logic is independent of `i2`. The previous value of `i1`, before `i0 = 0` is latched to `y`.
+
+The image below shows the output of synthesis.
+
+![Alt text](5.5.jpg)
+
+
+### Incomplete If-2 (incomp_if2.v)
+
+Code
+```
+module incomp_if2 (input i0, input i1, input i2, input i3, output reg y);
+  always @ (*)
+  begin
+    if (i0)
+      y <= i1;
+    else if (i2)
+      y <= i3;
+  end
+endmodule
+```
+
+The image below shows the simulation.
+
+![Alt text](5.6.jpg)
+
+Commands to run synthesis.
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog incomp_if2.v
+synth -top incomp_if2
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+
+Latch is inferred, as else condition is not mentioned. The latch is enabled using `i0||i2`. NOR gate is used instead of OR for better optimization. The input to the latch is some combinational logic including `i0`,`i1`,`i3` with the help of a  mux.
+
+The image below shows the output of synthesis.
+
+![Alt text](5.7.jpg)
+
+
+## Labs on Incomplete overlapping Case
+
+
+
+
 </details>
