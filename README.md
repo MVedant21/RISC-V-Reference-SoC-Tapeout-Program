@@ -851,9 +851,126 @@ The GLS output is shown below. In this case, `d` takes the current value of `x` 
 
 ![Alt text](4.3.jpg)
 
-
-
-
 </details>
 
 
+
+
+
+
+
+
+<details>
+<summary><b> Day 5 - Optimization in Synthesis</b></summary>
+
+## IF-ELSE statements
+
+If all the cases have been mentioned using a `if-else` statement, it generates a priority encoder or a combination of muxes. It is used to create priority logic.
+
+Code
+```
+if <cond 1>
+	c1
+else if <cond 2>
+	c2
+else
+	c3
+```
+
+The image below shows the hardware that will be generated.
+
+![Alt text](5.1.jpg)
+
+
+### Caveat in IF-ELSE statement
+
+If one has just used `if`, `else-if` in the constrait without else statement, latch will be inferred.
+
+Code
+```
+if <cond 1>
+	c1
+else if <cond 2>
+	c2
+```
+
+The image below shows the hardware that will be inferred.
+
+![Alt text](5.2.jpg)
+
+
+
+There might be exceptions to this like in case of designing a counter. If you dont mention the else statement, there will be a latch inferred, but would be logically correct as in that case when `en = 0`, the present value of `cout` will be latched/stored.
+
+Code 
+```
+reg [2:0] count;
+always @(posedge clk, posedge reset) begin
+	if (reset)
+		count <= 3'b000;
+	else if (en)
+		count <= count + 1;
+end
+```
+
+So, essentially one must think of the hardware implementation before using the if-else statements and ensure that latches arent inferred unless necessary.
+
+
+## CASE statements
+
+If all cases have been covered in the case statement, then it results in a mux with number of cases as inputs and log2(#cases) as the select reg bit-size.
+
+Code
+```
+case (sel) begin  #(sel is 2 bit reg)
+2'b00 : x = a;
+2'b01 : x = b;
+2'b10 : x = c;
+default : x = d;
+end
+```
+
+The image below shows the hardware that will be generated.
+
+![Alt text](5.3.jpg)
+
+
+### Caveats in CASE statement
+
+1) If no default is used when all cases are not mentioned, latch is inferred.
+
+Code
+```
+case (sel) begin  #(sel is 2 bit reg)
+2'b00 : x = a;
+2'b01 : x = b;
+2'b10 : x = c;  #(Here case 4 is not mentioned, hence latch will be inferred)
+end
+```
+
+2) Partial assignment in case even after mentioning defaut case, also results in latch being inferred.
+
+Code
+```
+case (sel) begin  #(sel is 2 bit reg)  #(Here 2 muxes will be inferred for reg x and y.)
+2'b00 : x = a
+		y = b;
+2'b01 : x = b;  #(Here y is not assigned any value, hence latch will be inferred)
+default: x = c
+	     y = b;
+end
+```
+
+3) Should not have overlapping case statements.
+
+Code
+```
+case (sel) begin  #(sel is 2 bit reg)
+2'b00 : x = a;
+2'b01 : x = b;
+2'b10 : x = c;
+2'b1? : x = d;  #(Here case 10 and 1? both will get executed one after another and value will always be d at the end if sel = 10)
+```
+
+
+</details>
