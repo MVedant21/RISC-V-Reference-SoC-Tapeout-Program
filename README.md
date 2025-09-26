@@ -1412,6 +1412,71 @@ The image below shows the post synthesis simulation. The simulation matches the 
 The output of both demux scenarios match with each other, proving that using for-loop is an easier method of coding the same logic for greate N.
 
 
+## Labs on For Loop
 
+### Ripple Carry Adder(rca.v)
+
+Code
+```
+module fa (input a, input b, input c, output co, output sum);
+    assign {co, sum} = a + b + c; 
+endmodule
+
+
+module rca (input [7:0] num1, input [7:0] num2, output [8:0] sum);
+    wire [7:0] int_sum;
+    wire [7:0] int_co; 
+    genvar i; 
+
+    fa u_fa_0 (.a (num1[0]),.b (num2[0]),.c (1'b0),.co (int_co[0]),.sum (int_sum[0]));
+
+    generate
+        for (i = 1; i < 8; i = i + 1) begin : fa_u_fa_i 
+            fa u_fa_1 (.a (num1[i]),.b (num2[i]),.c (int_co[i-1]),.co (int_co[i]),.sum (int_sum[i]));
+        end
+    endgenerate
+
+    assign sum[7:0] = int_sum;
+    assign sum[8] = int_co[7]; 
+
+endmodule
+```
+
+Command to run simulation.
+```
+iverilog fa.v rca.v rca_tb.v
+./a.out
+gtkwave rca_tb.vcd
+```
+
+The image below shows the simulation.
+
+![Alt text](5.25.jpg)
+
+Commands to run synthesis.
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog fa.v rca.v
+synth -top rca
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+write_verilog rca_net.v
+show rca
+```
+
+The image below shows the synthesis output.
+
+![Alt text](5.26.jpg)
+
+Command to run simulation for GLS.
+
+```
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v rca_net.v tb_rca.v
+./a.out
+gtkwave tb_rca.vcd
+```
+
+The image below shows the post synthesis simulation. The simulation matches the pre-synthesis simulation.
+
+![Alt text](5.27.jpg)
 
 </details>
