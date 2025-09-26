@@ -1300,6 +1300,118 @@ The image below shows the post synthesis simulation. The simulation matches the 
 ![Alt text](5.18.jpg)
 
 
+### Demux generation 1(demux_case.v)
+
+Code
+```
+module demux_case (output o0, output o1, output o2, output o3, output o4, output o5, output o6, output o7, input [2:0] sel, input i);
+    reg [7:0] y_int; 
+    assign {o7, o6, o5, o4, o3, o2, o1, o0} = y_int; 
+    
+    always @ (*) begin
+        y_int = 8'b00000000; 
+        case (sel)
+            3'b000 : y_int[0] = i; 
+            3'b001 : y_int[1] = i;
+            3'b010 : y_int[2] = i;
+            3'b011 : y_int[3] = i;
+            3'b100 : y_int[4] = i;
+            3'b101 : y_int[5] = i;
+            3'b110 : y_int[6] = i;
+            3'b111 : y_int[7] = i;
+        endcase
+    end
+    
+endmodule
+```
+
+The image below shows the simulation.
+
+![Alt text](5.19.jpg)
+
+Commands to run synthesis.
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog demux_case.v
+synth -top demux_case
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+write_verilog demux_case_net.v
+show
+```
+
+As expected we get the `1:8` generated along with a latch to store the output of the mux in the variable `y`.
+The image below shows the synthesis output.
+
+![Alt text](5.20.jpg)
+
+Command to run simulation for GLS.
+
+```
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v demux_case_net.v tb_demux_case.v
+./a.out
+gtkwave tb_demux_case.vcd
+```
+
+The image below shows the post synthesis simulation. The simulation matches the pre-synthesis simulation.
+
+![Alt text](5.21.jpg)
+
+
+
+### Demux generation 2(demux_generate.v)
+
+Code
+```
+module demux_generate (output o0, output o1, output o2, output o3, output o4, output o5, output o6, output o7, input [2:0] sel, input i);
+    reg [7:0] y_int; 
+    assign {o7, o6, o5, o4, o3, o2, o1, o0} = y_int; 
+    integer k; 
+    
+    always @ (*) begin
+        y_int = 8'b0; 
+        for (k = 0; k < 8; k = k + 1) begin
+            if (k == sel) 
+                y_int[k] = i;
+        end
+    end
+    
+endmodule
+```
+
+The image below shows the simulation.
+
+![Alt text](5.22.jpg)
+
+Commands to run synthesis.
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog demux_generate.v
+synth -top demux_generate
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+write_verilog demux_generate_net.v
+show
+```
+
+As expected we get the `1:8` generated along with a latch to store the output of the mux in the variable `y`.
+The image below shows the synthesis output.
+
+![Alt text](5.23.jpg)
+
+Command to run simulation for GLS.
+
+```
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v demux_generate_net.v tb_demux_generate.v
+./a.out
+gtkwave tb_demux_generate.vcd
+```
+
+The image below shows the post synthesis simulation. The simulation matches the pre-synthesis simulation.
+
+![Alt text](5.24.jpg)
+
+The output of both demux scenarios match with each other, proving that using for-loop is an easier method of coding the same logic for greate N.
+
+
 
 
 </details>
