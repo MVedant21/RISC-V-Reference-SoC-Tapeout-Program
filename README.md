@@ -1481,3 +1481,59 @@ The image below shows the post synthesis simulation. The simulation matches the 
 ![Alt text](5.27.jpg)
 
 </details>
+
+
+
+# WEEK 1
+
+<details>
+
+<summary><b> BabySoC Fundamentals & Functional Modelling </b></summary>
+
+## Understanding System-on-Chip (SoC)
+
+A System-on-Chip (SoC) is an integrated circuit that integrates almost all components of a computer or electronic system into a single chip. It functions as a complete system, contrasting with traditional designs that use separate chips for the Central Processing Unit (CPU), memory, and peripherals. SoCs are the foundation of modern, compact, and power-efficient electronics, such as smartphones, smartwatches, and IoT devices. They are valued for their space savings (compactness), energy efficiency (due to reduced distance for data transfer), and high performance.
+
+### Components of a Typical SoC
+
+A typical SoC is a complex integration of several functional blocks, connected via an internal communication fabric:
+
+- CPU (Central Processing Unit): The brain of the SoC. It executes software instructions, performs calculations, and manages data processing. Modern SoCs often incorporate multiple CPU cores.
+- Memory Subsystem: Includes various types of memory: RAM (Random Access Memory) for volatile, fast data storage during operation, and ROM/Flash for non-volatile storage (operating system, firmware), when the system is OFF.
+- Peripherals/I/O Ports: Specialized hardware blocks that interface the SoC with the external world and other internal functions. Examples include: GPU (Graphics Processing Unit), DSP (Digital Signal Processor), Communication Modules (Wi-Fi, Bluetooth), Input/Output interfaces (USB, I2C), and custom blocks like the PLL (Phase-Locked Loop) and DAC (Digital-to-Analog Converter) in BabySoC.
+- Interconnect Fabric: An on-chip network (often a bus or a Network-on-Chip, NoC) that provides the communication paths for the CPU, memory, and all peripherals to exchange data and control signals efficiently.
+
+
+## BabySoC: A Simplified Model for Learning SoC
+
+BabySoC (VSDBabySoC) is a simple, open-source teaching chip designed to make learning about complex Systems-on-Chip (SoCs) easier. It uses the RVMYTH RISC-V processor but leaves out the confusing parts of commercial chips, keeping only the basic, essential concepts.
+
+### Why BabySoC is a Simplified Model
+
+- Focused Components: It integrates a small, manageable set of essential components: the RVMYTH CPU, a Phase-Locked Loop (PLL) for precise clock generation, and a 10-bit Digital-to-Analog Converter (DAC) for analog interfacing. This limited scope allows us to focus on the interaction between a processor, timing mechanism, and an analog IP without getting overwhelmed around complex designs.
+- Open-Source and Documented: Its foundation on the open-source RISC-V architecture and its highly documented design make its internals transparent, ideal for deep study and experimentation.
+- Core Interface Demonstration: BabySoC clearly demonstrates a crucial design element: digital-to-analog interfacing. The system uses the RVMYTH CPU to process digital values, which are then fed to the DAC for conversion into an analog output (e.g., for audio/video), providing a tangible example of a mixed-signal design.
+- Technology Exposure: The project is based on the Sky130 technology, giving us hands-on exposure to a real, open-source industrial fabrication process.
+
+
+## Role of Functional Modeling in SoC Design Flow
+
+Functional modeling is the critical first step in the SoC design flow, occurring before the Register-Transfer Level (RTL) and Physical Design stages.
+
+### Functional Modeling
+
+Focuses on Behavior (What it does). The output is a calidated C/C++ or high-level HDL model. It's crucial because it eliminates architectural errors early, before committing to hardware structure.
+
+### RTL Design (Register-Transfer Level)
+
+Focuses on Structure (How it's built). The output is detailed Verilog/VHDL code. It's crucial because it translates the function into a gate-level ready hardware description.
+
+### Physical Design
+
+Focuses on Layout (Where it goes). The output is the GDSII file (for fabrication). It's crucial because it deals with timing, power, and physical constraints of the actual chip.
+
+
+In conclusion, the BabySoC platform is a great teaching tool because it connects theory to practice. It's a simple, open-source system that covers all the main SoC concepts, like how the CPU works, how to manage the clock, and how to convert digital signals to analog. This makes it an ideal way to see how functional modeling is crucial for building a successful final chip.
+
+</details>
+
