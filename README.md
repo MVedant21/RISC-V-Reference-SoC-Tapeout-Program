@@ -1484,7 +1484,7 @@ The image below shows the post synthesis simulation. The simulation matches the 
 
 
 
-# WEEK 1
+# WEEK 2
 
 <details>
 
@@ -1674,6 +1674,7 @@ The image below shows the Synthesis output.
 
 
 
+
 ## Rvmyth Modeling (RISC-V Core)
 
 The rvmyth module is a simple RISC-V based processor. It outputs a 10-bit digital signal (OUT) to be converted by the DAC.
@@ -1687,7 +1688,7 @@ The rvmyth module is a simple RISC-V based processor. It outputs a 10-bit digita
 
 ### Installation
 
-Clone this repository in an arbitrary directory.(Make sure that the sandpiper-saas and docker.io files are in the same path as the github repo.)
+Clone this repository in an arbitrary directory.
 ```
 git clone https://github.com/manili/VSDBabySoC.git
 ```
@@ -1707,6 +1708,57 @@ The image below shows the simulation output.
 ![Alt text](w2.5.jpg)
 
 We can see from the simulation that the 10-bit digital processed data is coming as output (`out`) in synchornization with the `clock` signal.
+
+
+
+
+## AVSDDAC Modeling (DAC Module)
+
+The dac module converts the 10-bit digital signal from the rvmyth core to an analog output.
+```
+  Inputs:
+     - D: A 10-bit digital input from the processor.
+     - VREFH: Reference voltage for the DAC.
+  Output:
+     - OUT: Analog output signal.
+```
+
+### Installation
+
+Clone this repository in an arbitrary directory.
+```
+git clone https://github.com/vsdip/rvmyth_avsddac_interface.git
+```
+
+### Pre-Synthesis Simulation
+
+Run the following commands to perform a pre-synthesis simulation.
+```
+cd rvmyth_avsddac_interface/iverilog/Pre-synthesis
+iverilog avsddac.v avsddac_tb_test.v
+./a.out
+gtkwave avsddac_tb_test.vcd
+```
+
+The image below shows the simulation output.
+
+![Alt text](w2.6.jpg)
+
+
+Now integrate both rvymth and DAC using a Top level module and test it to verify the correctness of the integration.
+
+Run the following commands to perform a pre-synthesis simulation.
+```
+iverilog rvmyth_avsddac.v rvmyth_avsddac_TB.v
+./a.out
+gtkwave rvmyth_avsddac.vcd
+```
+
+The image below shows the simulation output.
+
+![Alt text](w2.7.jpg)
+
+
 
 
 </details>
