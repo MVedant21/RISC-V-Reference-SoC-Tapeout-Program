@@ -1712,6 +1712,20 @@ We can see from the simulation that the 10-bit digital processed data is coming 
 
 
 
+
+## AVSDPLL Modeling (PLL Module)
+
+The dac module converts the 10-bit digital signal from the rvmyth core to an analog output.
+```
+  Inputs:
+     - VCO_IN, ENb_CP, ENb_VCO, REF: Control and reference signals for PLL operation.
+  Output:
+     - CLK: A stable clock signal for synchronizing the core and other modules.
+```
+
+
+
+
 ## AVSDDAC Modeling (DAC Module)
 
 The dac module converts the 10-bit digital signal from the rvmyth core to an analog output.
