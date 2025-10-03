@@ -1661,9 +1661,13 @@ Two most important signals are `CLK` and `OUT`. The `CLK` signal is provided by 
 In this picture we can see the following signals:
 
 **\core.CLK**: This is the input `CLK` signal of the `RVMYTH` core. This signal comes from the `PLL`, originally.
+
 **reset**: This is the `input reset` signal of the `RVMYTH` core. This signal comes from an external source, originally.
+
 **OUT**: This is the output `OUT` signal of the `VSDBabySoC` module. This signal comes from the `DAC` (due to simulation restrictions it behaves like a digital signal which is incorrect), originally.
+
 **\core.OUT[9:0]**: This is the `10-bit output [9:0] OUT` port of the `RVMYTH` core. This port comes from the `RVMYTH register #17`, originally.
+
 **OUT**: This is a real datatype wire which can simulate analog values. It is the output wire real `OUT` signal of the `DAC` module. This signal comes from the DAC, originally.
 
 **PLEASE NOTE** that the sythesis process does not support real variables, so we must use the simple wire datatype for the `\vsdbabysoc.OUT` instead. The iverilog simulator always behaves wire as a digital signal. As a result we can not see the analog output via `\vsdbabysoc.OUT` port and we need to use `\dac.OUT` (which is a real datatype) instead.
@@ -1761,9 +1765,13 @@ The image below shows the simulation output.
 In this picture we can see the following signals:
 
 **D[9:0]**: DAC 10-bit digital input.
+
 **EN**: Enable is high for the block to be active.
+
 **OUT**: Corresponding analog values to the input D, as the output.
+
 **VREFH**: Reference voltage high = 3.7V .
+
 **VREL**: Reference voltage low = 0V .
 
 Now integrate both rvymth and DAC using a Top level module and test it to verify the correctness of the integration.
@@ -1782,7 +1790,9 @@ The image below shows the simulation output.
 In this picture we can see the following signals:
 
 **out[9:0]**: rvymth 10-bit digital output.
+
 **D[9:0]**: DAC 10-bit digital input.
+
 **Out**: DAC analog output.
 
 
