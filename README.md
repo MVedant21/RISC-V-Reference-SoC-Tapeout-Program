@@ -1653,7 +1653,7 @@ In this picture we can see the following signals:
 
 **PLEASE NOTE** that the sythesis process does not support real variables, so we must use the simple wire datatype for the `\vsdbabysoc.OUT` instead. The iverilog simulator always behaves wire as a digital signal. As a result we can not see the analog output via `\vsdbabysoc.OUT` port and we need to use `\dac.OUT` (which is a real datatype) instead.
 
-The image below shows the command line output.
+The image below shows the Synthesis output.
 
 ![Alt text](w2.1.jpg)
 
