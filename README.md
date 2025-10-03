@@ -1588,7 +1588,7 @@ gtkwave output/pre_synth_sim/pre_synth_sim.vcd
 
 Two most important signals are `CLK` and `OUT`. The `CLK` signal is provided by the `PLL` and the `OUT` is the output of the `DAC model`. The image below shows the final result of the modeling process.
 
-![Alt text](w2.1.jpg)
+![Alt text](w2.4.jpg)
 
 In this picture we can see the following signals:
 
@@ -1602,7 +1602,7 @@ In this picture we can see the following signals:
 
 The image below shows the command line output.
 
-![Alt text](w2.2.jpg)
+![Alt text](w2.3.jpg)
 
 
 ### Synthesis
@@ -1641,7 +1641,7 @@ gtkwave output/post_synth_sim/post_synth_sim.vcd
 
 Two most important signals are `CLK` and `OUT`. The `CLK` signal is provided by the `PLL` and the `OUT` is the output of the `DAC model`. The image below shows the final result of the modeling process.
 
-![Alt text](w2.3.jpg)
+![Alt text](w2.2.jpg)
 
 In this picture we can see the following signals:
 
@@ -1655,7 +1655,7 @@ In this picture we can see the following signals:
 
 The image below shows the command line output.
 
-![Alt text](w2.4.jpg)
+![Alt text](w2.1.jpg)
 
 
 
