@@ -1707,7 +1707,7 @@ The image below shows the simulation output.
 
 ![Alt text](w2.5.jpg)
 
-We can see from the simulation that the 10-bit digital processed data is coming as output (`out`) in synchornization with the `clock` signal.
+We can see from the simulation that the 10-bit digital processed data is coming as output (`out`) in synchronization with the `clock` signal.
 
 
 
@@ -1758,6 +1758,13 @@ The image below shows the simulation output.
 
 ![Alt text](w2.6.jpg)
 
+In this picture we can see the following signals:
+
+**D[9:0]**: DAC 10-bit digital input.
+**EN**: Enable is high for the block to be active.
+**OUT**: Corresponding analog values to the input D, as the output.
+**VREFH**: Reference voltage high = 3.7V .
+**VREL**: Reference voltage low = 0V .
 
 Now integrate both rvymth and DAC using a Top level module and test it to verify the correctness of the integration.
 
@@ -1772,7 +1779,11 @@ The image below shows the simulation output.
 
 ![Alt text](w2.7.jpg)
 
+In this picture we can see the following signals:
 
+**out[9:0]**: rvymth 10-bit digital output.
+**D[9:0]**: DAC 10-bit digital input.
+**Out**: DAC analog output.
 
 
 </details>
