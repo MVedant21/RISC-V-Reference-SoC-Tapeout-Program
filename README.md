@@ -1537,3 +1537,127 @@ In conclusion, the BabySoC platform is a great teaching tool because it connects
 
 </details>
 
+
+
+
+<details>
+
+<summary><b>  Labs (Hands-on Functional Modelling) </b></summary>
+
+
+## VSDBabySoC Modeling
+
+### Installation
+
+First we need to install some important packages:
+```
+$ sudo apt install make python python3 python3-pip git iverilog gtkwave docker.io
+$ sudo chmod 666 /var/run/docker.sock
+$ cd ~
+$ pip3 install pyyaml click sandpiper-saas
+```
+
+Now we can clone this repository in an arbitrary directory.(Make sure that the sandpiper-saas and docker.io files are in the same path as the github repo.):
+```
+git clone https://github.com/manili/VSDBabySoC.git
+```
+
+
+### Pre-Synthesis Simulation
+
+Run the following command to perform a pre-synthesis simulation:
+```
+iverilog -o output/pre_synth_sim/pre_synth_sim.out -DPRE_SYNTH_SIM \
+    -I src/include -I src/module \
+    src/module/testbench.v src/module/vsdbabysoc.v
+cd output/pre_synth_sim
+./pre_synth_sim.out
+
+(OR)
+
+cd VSDBabySoC
+make pre_synth_sim
+```
+
+The result of the simulation (i.e.`pre_synth_sim.vcd`) will be stored in the `output/pre_synth_sim` directory.
+
+Command to see the simulation using GTKwave:
+```
+gtkwave output/pre_synth_sim/pre_synth_sim.vcd
+```
+
+Two most important signals are `CLK` and `OUT`. The `CLK` signal is provided by the `PLL` and the `OUT` is the output of the `DAC model`. The image below shows the final result of the modeling process.
+
+![Alt text](w2.1.jpg)
+
+In this picture we can see the following signals:
+
+**CLK**: This is the input `CLK` signal of the `RVMYTH` core. This signal comes from the `PLL`, originally.
+**reset**: This is the `input reset` signal of the `RVMYTH` core. This signal comes from an external source, originally.
+**OUT**: This is the output `OUT` signal of the `VSDBabySoC` module. This signal comes from the `DAC` (due to simulation restrictions it behaves like a digital signal which is incorrect), originally.
+**RV_TO_DAC[9:0]**: This is the `10-bit output [9:0] OUT` port of the `RVMYTH` core. This port comes from the `RVMYTH register #17`, originally.
+**OUT**: This is a real datatype wire which can simulate analog values. It is the output wire real `OUT` signal of the `DAC` module. This signal comes from the DAC, originally.
+
+**PLEASE NOTE** that the sythesis process does not support real variables, so we must use the simple wire datatype for the `\vsdbabysoc.OUT` instead. The iverilog simulator always behaves wire as a digital signal. As a result we can not see the analog output via `\vsdbabysoc.OUT` port and we need to use `\dac.OUT` (which is a real datatype) instead.
+
+The image below shows the command line output.
+
+![Alt text](w2.2.jpg)
+
+
+### Synthesis
+
+To perform the synthesis process do the following:
+```
+cd ~/VSDBabySoC
+make synth
+```
+
+We get the result in the `output/synth/vsdbabysoc.synth.v` file.
+
+
+### Post-Synthesis Simulation(GLS)
+
+Run the following command to perform a pre-synthesis simulation:
+```
+iverilog -o output/post_synth_sim/post_synth_sim.out -DPRE_SYNTH_SIM \
+    -I src/include -I src/module \
+    src/module/testbench.v src/module/vsdbabysoc.v
+cd output/post_synth_sim
+./post_synth_sim.out
+
+(OR)
+
+cd VSDBabySoC
+make post_synth_sim
+```
+
+The result of the simulation (i.e.`post_synth_sim.vcd`) will be stored in the `output/post_synth_sim` directory.
+
+Command to see the simulation using GTKwave:
+```
+gtkwave output/post_synth_sim/post_synth_sim.vcd
+```
+
+Two most important signals are `CLK` and `OUT`. The `CLK` signal is provided by the `PLL` and the `OUT` is the output of the `DAC model`. The image below shows the final result of the modeling process.
+
+![Alt text](w2.3.jpg)
+
+In this picture we can see the following signals:
+
+**\core.CLK**: This is the input `CLK` signal of the `RVMYTH` core. This signal comes from the `PLL`, originally.
+**reset**: This is the `input reset` signal of the `RVMYTH` core. This signal comes from an external source, originally.
+**OUT**: This is the output `OUT` signal of the `VSDBabySoC` module. This signal comes from the `DAC` (due to simulation restrictions it behaves like a digital signal which is incorrect), originally.
+**\core.OUT[9:0]**: This is the `10-bit output [9:0] OUT` port of the `RVMYTH` core. This port comes from the `RVMYTH register #17`, originally.
+**OUT**: This is a real datatype wire which can simulate analog values. It is the output wire real `OUT` signal of the `DAC` module. This signal comes from the DAC, originally.
+
+**PLEASE NOTE** that the sythesis process does not support real variables, so we must use the simple wire datatype for the `\vsdbabysoc.OUT` instead. The iverilog simulator always behaves wire as a digital signal. As a result we can not see the analog output via `\vsdbabysoc.OUT` port and we need to use `\dac.OUT` (which is a real datatype) instead.
+
+The image below shows the command line output.
+
+![Alt text](w2.4.jpg)
+
+
+
+
+</details>
