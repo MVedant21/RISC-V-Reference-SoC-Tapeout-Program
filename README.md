@@ -1802,12 +1802,129 @@ In this picture we can see the following signals:
 
 ## Post-Synthesis GLS
 
+### Key-aspects of GLS for BabySoC
+
+1) Verification with Timing Information:
+- GLS is performed using Standard Delay Format (SDF) files to ensure timing correctness.
+- This checks if the SoC behaves as expected under real-world timing constraints.
+  
+2) Design Validation Post-Synthesis:
+- Confirms that the design's logical behavior remains correct after mapping it to the gate-level representation.
+- Ensures that the design is free from issues like metastability or glitches.
+
+3) Simulation Tools:
+- Icarus Verilog(iVerilog) is used for compiling and running the gate-level netlist.
+- Yosys is used to generate the netlist from the given RTL codes and libraries.
+- Waveforms are analyzed using GTKWave.
+
+
+Below mentioned are the generalized steps for running the GLS from start.
+
+Load the Top-Level Design and Supporting Modules.
+```
+yosys
+read_verilog /home/vedant/VSDBabySoC/src/module/vsdbabysoc.v
+read_verilog -I /home/vedant/VSDBabySoC/src/include /home/vedant/VSDBabySoC/src/module/rvmyth.v
+read_verilog -I /home/vedant/VSDBabySoC/src/include /home/vedant/VSDBabySoC/src/module/clk_gate.v
+```
+
+Load the Liberty Files for Synthesis.
+```
+read_liberty -lib /home/vedant/VSDBabySoC/src/lib/avsdpll.lib
+read_liberty -lib /home/vedant/VSDBabySoC/src/lib/avsddac.lib
+read_liberty -lib /home/vedant/VSDBabySoC/src/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+
+Run Synthesis Targeting vsdbabysoc.
+```
+synth -top vsdbabysoc
+```
+
+Map D Flip-Flops to Standard Cells.
+```
+dfflibmap -liberty /home/vedant/VSDBabySoC/src/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+
+Perform Optimization and Technology Mapping.
+```
+opt
+abc -liberty /home/vedant/VSDBabySoC/src/lib/sky130_fd_sc_hd__tt_025C_1v80.lib -script +strash;scorr;ifraig;retime;{D};strash;dch,-f;map,-M,1,{D}
+```
+
+Perform Final Clean-Up and Renaming.
+```
+flatten
+setundef -zero
+clean -purge
+rename -enumerate
+```
+
+Check stat and write the Synthesized Netlist.
+```
+stat
+write_verilog -noattr /home/vedant/VSDBabySoC/output/post_synth_sim/vsdbabysoc.synth.v
+```
+
+Run the following iverilog command to compile the testbench.
+```
+iverilog -o /home/vedant/VSDBabySoC/output/post_synth_sim/post_synth_sim.out -DPOST_SYNTH_SIM -DFUNCTIONAL -DUNIT_DELAY=#1 -I /home/vedant/VSDBabySoC/src/include -I /home/vedant/VSDBabySoC/src/module /home/vedant/VSDBabySoC/src/module/testbench.v
+```
+
+Run the Simulation and view using GTKWave.
+```
+cd output/post_synth_sim/
+./post_synth_sim.out
+gtkwave post_synth_sim.vcd
+```
+
+
+
+As I could not find the `rvymth.v` code in the repositories shared in all the pdfs till now, I used the make file to run the GLS and generate the simulation for the gtkwave Post-synthesis.
+
+The commands used to do this are given below along with pre-synthesis and post-synthesis outputs.
+
+Clone the repository
+```
+git clone https://github.com/manili/VSDBabySoC.git
+```
+
+Command to run the simulation(Pre-Synthesis)
+```
+cd VSDBabySoC
+make pre_synth_sim
+
+gtkwave output/pre_synth_sim/pre_synth_sim.vcd
+```
+
+The image below shows the output of the Pre-synthesis simulation.
+
+![Alt text](w2.4.jpg)
+
+
+Command to run synthesis(GLS)
+```
+cd VSDBabySoC
+make synth
+```
+
+The image below shows the command-line output post Synthesis.
+
+![Alt text](w2.1.jpg)
+
+Command to run the simulation(Post-Synthesis)
+```
+cd VSDBabySoC
+make post_synth_sim
+
+gtkwave output/post_synth_sim/post_synth_sim.vcd
+```
+
+The image below shows the output of the Post-synthesis simulation.
+![Alt text](w2.2.jpg)
+
 
 
 ## Fundamentals of STA (Static Timing Analysis) 
-
-
-
 
 
 </details>
