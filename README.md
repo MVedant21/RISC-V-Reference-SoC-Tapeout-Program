@@ -1923,6 +1923,10 @@ The image below shows the output of the Post-synthesis simulation.
 ![Alt text](w2.2.jpg)
 
 
+We can clearly see from the Pre-Synthesis and Post-Synthesis simulation outputs that are attached `GLS = Functional outputs`.
+The waveforms show the same set of variables simulated with matching outputs.
+
+
 
 ## Fundamentals of STA (Static Timing Analysis) 
 
