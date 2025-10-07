@@ -1787,3 +1787,27 @@ In this picture we can see the following signals:
 
 
 </details>
+
+
+
+
+
+
+
+# WEEK 3
+
+<details>
+
+<summary><b> Post-Synthesis GLS & STA Fundamentals </b></summary>
+
+## Post-Synthesis GLS
+
+
+
+## Fundamentals of STA (Static Timing Analysis) 
+
+
+
+
+
+</details>
