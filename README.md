@@ -1931,4 +1931,80 @@ The waveforms show the same set of variables simulated with matching outputs.
 ## Fundamentals of STA (Static Timing Analysis) 
 
 
+### Timing Analysis Summary
+
+Static Timing Analysis (STA) ensures reliable data transfer across sequential elements by verifying timing paths with respect to the clock.  
+Each **timing path** is analyzed to confirm that **setup** and **hold** requirements are met for all signals.
+
+
+### Path-Based Analysis
+
+Each path in the circuit is defined as:
+
+- **Start Point:** Flip-Flop (FF) **clock pin** or **input port**  
+- **End Point:** Flip-Flop (FF) **data (D) pin** or **output port**
+
+Logic gates are represented as **nodes** forming a **Directed Acyclic Graph (DAG)**.  
+A **source** and **sink** node are added to compute:  
+
+- **AAT (Actual Arrival Time)**  
+- **RAT (Required Arrival Time)**  
+
+**Slack = RAT − AAT**  
+Positive slack → timing met 
+Negative slack → violation 
+
+
+### Setup and Hold Checks
+
+| Type | Purpose | Delay Type | Slack Term | Condition |
+|------|----------|-------------|-------------|------------|
+| **Setup Analysis** | Ensures data arrives **before** next clock edge | **Max delay** | **Setup Slack (Max Slack)** | Data must settle before capture |
+| **Hold Analysis** | Ensures data remains **stable after** same clock edge | **Min delay** | **Hold Slack (Min Slack)** | Data must not change too early |
+
+**Path types analyzed:**
+- `reg → reg`
+- `in → reg`
+- `reg → out`
+- `in → out`
+- Clock gating  
+- Recovery/Removal  
+- Data–Data  
+- Latch (Time-Borrow / Time-Given)
+
+
+### Clock Definitions and Analysis
+
+Accurate **clock definition** is vital for STA. Clock parameters directly influence setup/hold margins:
+
+- **Clock Skew:** Difference in clock arrival times at start and end points  
+- **Pulse Width:** Ensures proper clock duty cycle  
+- **Clk-to-Q Delay:** Time for FF output to respond to a clock edge  
+
+All these affect the **effective data arrival** and **required times** used for slack computation.
+
+
+### Slew and Load Analysis
+
+| Category | Parameters Checked | Purpose |
+|-----------|--------------------|----------|
+| **Slew / Transition** | Data (min/max), Clock (min/max) | Ensures valid rise/fall times |
+| **Load Analysis** | Fanout (min/max), Capacitance (min/max) | Determines delay due to loading |
+
+---
+
+### Final Timing Computation Flow
+
+1. Define clocks and identify start/end points  
+2. Convert logic into nodes → form **DAG**  
+3. Calculate **AAT** (data arrival) and **RAT** (required time)  
+4. Compute **Setup and Hold Slack**  
+5. Verify no negative slack exists (timing closure achieved)
+
+
+### Conclusion 
+
+STA validates that signals launched from **FF clock/input** reach the **FF D/output** on time, meeting both **setup (max)** and **hold (min)** constraints, guided by clock behavior, path delays, and load characteristics.
+
+
 </details>
