@@ -1991,7 +1991,6 @@ All these affect the **effective data arrival** and **required times** used for 
 | **Slew / Transition** | Data (min/max), Clock (min/max) | Ensures valid rise/fall times |
 | **Load Analysis** | Fanout (min/max), Capacitance (min/max) | Determines delay due to loading |
 
----
 
 ### Final Timing Computation Flow
 
