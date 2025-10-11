@@ -2006,4 +2006,58 @@ All these affect the **effective data arrival** and **required times** used for 
 STA validates that signals launched from **FF clock/input** reach the **FF D/output** on time, meeting both **setup (max)** and **hold (min)** constraints, guided by clock behavior, path delays, and load characteristics.
 
 
+
+## Generating Timing Graphs with OpenSTA
+
+### Timing Analysis Results
+
+This repository contains the timing analysis results for various PVT (Process, Voltage, Temperature) corners. The analysis focuses on key timing metrics: Worst Setup Slack, Worst Hold Slack, Worst Negative Slack (WNS), and Total Negative Slack (TNS).
+
+### Results Table
+
+The following table summarizes the timing analysis for each PVT corner:
+
+| PVT_CORNER   | Worst Setup Slack | Worst Hold Slack | WNS       | TNS           |
+| :----------- | :---------------- | :--------------- | :-------- | :------------ |
+| tt_025C_1v80 | 2.2603            | 0.3096           | 0         | 0             |
+| ff_100C_1v65 | 4.1853            | 0.2491           | 0         | 0             |
+| ff_100C_1v95 | 5.5202            | 0.1960           | 0         | 0             |
+| ff_n40C_1v56 | 1.8047            | 0.2915           | 0         | 0             |
+| ff_n40C_1v65 | 3.1788            | 0.2551           | 0         | 0             |
+| ff_n40C_1v76 | 4.2413            | 0.2243           | 0         | 0             |
+| ss_100C_1v40 | -11.2888          | 0.9053           | -11.2888  | -9245.0244    |
+| ss_100C_1v60 | -4.8042           | 0.6420           | -4.8042   | -3378.2246    |
+| ss_n40C_1v28 | -55.7561          | 1.8296           | -55.7561  | -46170.3242   |
+| ss_n40C_1v35 | -35.1855          | 1.3475           | -35.1855  | -28713.4316   |
+| ss_n40C_1v40 | -27.0853          | 1.1249           | -27.0853  | -21725.4824   |
+| ss_n40C_1v44 | -22.7070          | 0.9909           | -22.7070  | -17801.5625   |
+| ss_n40C_1v76 | -5.2654           | 0.5038           | -5.2654   | -3208.7738    |
+
+### Interpretation of Metrics
+
+*   **PVT_CORNER**: Represents the Process, Voltage, and Temperature conditions under which the timing analysis was performed.
+    *   `tt`: Typical Process
+    *   `ff`: Fast Process
+    *   `ss`: Slow Process
+    *   `025C`, `100C`, `n40C`: Temperature in Celsius (e.g., 25°C, 100°C, -40°C)
+    *   `1v80`, `1v65`, `1v95`, etc.: Voltage (e.g., 1.80V, 1.65V, 1.95V)
+*   **Worst Setup Slack**: The smallest positive or most negative setup slack found in the design. A negative value indicates a setup timing violation.
+*   **Worst Hold Slack**: The smallest positive or most negative hold slack found in the design. A negative value indicates a hold timing violation.
+*   **WNS (Worst Negative Slack)**: The single worst (most negative) slack value across all timing paths in the design. A negative WNS indicates a timing violation.
+*   **TNS (Total Negative Slack)**: The sum of all negative slack values in the design. A negative TNS indicates the total magnitude of timing violations.
+
+### Observations
+
+*   The `tt` and `ff` corners generally show positive setup and hold slack, indicating no timing violations under these conditions.
+*   The `ss` (slow process) corners, particularly at lower voltages (`1v28`, `1v35`, `1v40`, `1v44`), exhibit significant negative WNS and TNS, indicating severe timing violations. This is expected as the slow process corner represents the worst-case scenario for performance.
+*   As voltage increases in the `ss_n40C` corner (e.g., from `1v28` to `1v76`), the negative slack values improve (become less negative), suggesting better timing performance at higher voltages.
+
+
+Below are the generated graphs.
+
+![Alt text](w2.8.jpg)
+
+![Alt text](w2.9.jpg)
+
+
 </details>
