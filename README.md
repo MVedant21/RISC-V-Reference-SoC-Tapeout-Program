@@ -2117,7 +2117,7 @@ Below are the generated graphs.
 
 # WEEK 4
 <details>
-<summary><b> Introduction to Circuit Design and SPICE Simulations </b></summary>
+<summary><b> Day1 - Introduction to Circuit Design and SPICE Simulations </b></summary>
 
 ### Why do we need SPICE simulations?
 
