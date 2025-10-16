@@ -2136,4 +2136,50 @@ SPICE ensures the circuit meets functionality, timing, and power requirements.
 
 ![Alt text](w4.1.jpg)
 
+
+### LABS
+
+#### SPICE Lab with Sky130 Models
+
+To use SPICE with Sky130 technology, you have to clone the below GitHub repository containing Sky130 models and circuits for simulation.
+```
+git clone https://github.com/kunalg123/sky130CircuitDesignWorkshop.git
+```
+
+Download NGSpice using the below command.
+```
+sudo apt install ngspice
+```
+
+#### Important Files in the Repo:
+
+`/sky130CircuitDesignWorkshop/design/sky130_fd_pr/cells/nfet_01v8/sky130_fd_pr__nfet_01v8__tt.pm3.spice`
+This file contains the SPICE model for the NFET (N-channel MOSFET) in the Sky130 process at typical (tt) conditions.
+
+`/sky130CircuitDesignWorkshop/design/sky130_fd_pr/cells/nfet_01v8/sky130_fd_pr__nfet_01v8__tt.corner.spice`
+This file provides the corner model for the NFET, used for simulating different process variations.
+
+`/sky130CircuitDesignWorkshop/design/sky130_fd_pr/models/sky130.lib.pm3.spice`
+This library file contains all the SPICE models for components in the Sky130 process node.
+
+
+#### Ids vs Vds over constant Vgs plot
+
+Use the below commands.
+```
+ngspice day1_nfet_idvds_L2_W5.spice
+plot -vdd#branch
+```
+
+The below images show the terminal output along with plots.
+
+![Alt text](w4.2.jpg)
+
+![Alt text](w4.3.jpg)
+
+![Alt text](w4.4.jpg)
+
+
+
+
 </details>
