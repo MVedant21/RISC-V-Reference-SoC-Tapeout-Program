@@ -2134,6 +2134,6 @@ For example, in an inverter:
 
 SPICE ensures the circuit meets functionality, timing, and power requirements.
 
-
+![Alt text](w4.1.jpg)
 
 </details>
