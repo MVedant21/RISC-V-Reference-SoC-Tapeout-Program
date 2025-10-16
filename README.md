@@ -2107,3 +2107,33 @@ Below are the generated graphs.
 
 
 </details>
+
+
+
+
+
+
+
+
+# WEEK 4
+<details>
+<summary><b> INTRODUCTION TO CIRCUIT DESIGN AND SPICE SIMUATIONS </b></summary>
+
+### Why do we need SPICE simulations?
+
+SPICE simulations verify circuit behavior and performance before implementation. In circuit design, logic gates like NAND, NOR, and NOT are built using NMOS and PMOS transistors.
+
+SPICE simulations let us test and fine-tune circuits virtually before building them. For example, if we provide an input waveform to a circuit, SPICE generates the output waveform, showing how the circuit behaves.
+
+These waveforms help us measure things like delay. By tweaking the design parameters, such as the width (W) and length (L) of transistors, we can control the current flow, which in turn affects the delay. This makes it easier to optimize the circuit for better performance.
+
+For example, in an inverter:
+
+- PMOS (pull-up) and NMOS (pull-down) drains connect to the output with a capacitive load.
+- Both gates connect to the input, PMOS source to VDD, and NMOS source to GND.
+
+SPICE ensures the circuit meets functionality, timing, and power requirements.
+
+
+
+</details>
