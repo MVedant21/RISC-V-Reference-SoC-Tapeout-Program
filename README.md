@@ -2224,13 +2224,15 @@ The below images show the terminal output along with plots.
 
 ![Alt text](w4.10.jpg)
 
-For *long-channel devices*, drain current shows a *quadratic dependence* on gate voltage.
-For *short-channel devices*, it is *quadratic at low gate voltage* but becomes *linear at higher voltages* due to velocity saturation. 
+For **long-channel devices**, drain current shows a **quadratic dependence** on gate voltage.
+
+For **short-channel devices**, it is **quadratic at low gate voltage** but becomes **linear at higher voltages** due to velocity saturation. 
 
 ![Alt text](w4.11.jpg)
 
-At *lower electric fields*, carrier velocity increases *linearly* with the electric field.
-At *higher electric fields*, velocity saturates and becomes *constant* due to *velocity saturation*.
+At **lower electric fields**, carrier velocity increases **linearly** with the electric field.
+
+At **higher electric fields**, velocity saturates and becomes **constant** due to **velocity saturation**.
 
 ![Alt text](w4.12.jpg)
 
@@ -2248,17 +2250,11 @@ Velocity Saturation Drain Current Model:
 
 ![Alt text](w4.16.jpg)
 
+
 #### OBSERVATIONS
 
 - Observation 1: For short-channel devices, at higher electric fields, the device enters velocity saturation, causing Ids to remain constant as Vds increases. Here, Ids becomes a linear function of Vgs, unlike the quadratic dependence in long-channel devices.
 - Observation 2: Velocity saturation causes the device to saturate earlier.
-
-
-
-
-
-
-
 
 
 ### LABS
