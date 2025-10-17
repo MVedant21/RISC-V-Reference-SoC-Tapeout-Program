@@ -2254,6 +2254,34 @@ Velocity Saturation Drain Current Model:
 - Observation 2: Velocity saturation causes the device to saturate earlier.
 
 
+## CMOS Voltage Transfer Characteristics (VTC):
+
+Vout is high when Vin is low, and Vout is low when Vin is high.
+
+The transition region shows a steep drop where both NMOS and PMOS conduct, defining the switching threshold.
+
+In MOS devices, `Rp` (PMOS) and `Rn` (NMOS) act as non-linear resistors, where their resistance is a function of drain current `Ids`, influenced by gate voltage `Vgs` and drain voltage `Vds`.
+
+
+### PMOS/NMOS Drain Current vs. Drain Voltage:
+
+Linear Region (Vds < Vdsat):
+- Drain current (Ids) increases linearly with Vds.
+- Device behaves like a resistor controlled by Vgs.
+
+Saturation Region (Vds ≥ Vdsat):
+- Drain current (Ids) becomes constant and independent of Vds.
+- For NMOS, Ids depends on Vgs - Vth.
+- For PMOS, Ids depends on Vth - Vgs.
+
+
+1) Step1. Convert PMOS gate-source voltage to Vin.
+2) Step2. Convert PMOS and NMOS drain-source voltages to Vout.
+3) Step3. Relate the drain-source voltages of both devices to the output voltage ``Vout` by considering their respective operating regions (linear or saturation).
+4) Step4. Merge the PMOS and NMOS load curves by combining their drain current (Ids) characteristics with respect to Vout.
+
+
+
 ## LABS
 
 ### Id vs Vds PLOT
