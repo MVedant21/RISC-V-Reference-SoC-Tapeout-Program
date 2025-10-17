@@ -2215,7 +2215,7 @@ The below images show the terminal output along with plots.
 <details>
 <summary><b> Day2 - SPICE simulation for lower nodes and velocity Saturation effect </b></summary>
 
-## SPICE SIMULATION FOR LOWER NODES
+## SPICE simulation for lower nodes
 
 ![Alt text](w4.9.jpg)
 
