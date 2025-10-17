@@ -2216,6 +2216,51 @@ The below images show the terminal output along with plots.
 <summary><b> Day2 - Introduction to Circuit Design and SPICE Simulations </b></summary>
 
 
+### SPICE SIMULATION FOR LOWER NODES AND VELOCITY SATURATION EFFECT
+
+#### SPICE simulation for lower nodes
+
+![Alt text](w4.9.jpg)
+
+![Alt text](w4.10.jpg)
+
+For *long-channel devices*, drain current shows a *quadratic dependence* on gate voltage.
+For *short-channel devices*, it is *quadratic at low gate voltage* but becomes *linear at higher voltages* due to velocity saturation. 
+
+![Alt text](w4.11.jpg)
+
+At *lower electric fields*, carrier velocity increases *linearly* with the electric field.
+At *higher electric fields*, velocity saturates and becomes *constant* due to *velocity saturation*.
+
+![Alt text](w4.12.jpg)
+
+![Alt text](w4.13.jpg)
+
+![Alt text](w4.14.jpg)
+
+Velocity Saturation Drain Current Model:
+- Technology Parameter: Saturation voltage (Vdsat) – the voltage at which carrier velocity saturates, independent of Vgs or Vds.
+- Vgt is minimum → FET is in saturation region (both long and short channel).
+- Vds is minimum → FET is in linear region (both long and short channel).
+- Vdsat is minimum → FET velocity saturates (only for short channel).
+
+![Alt text](w4.15.jpg)
+
+![Alt text](w4.16.jpg)
+
+#### OBSERVATIONS
+
+- Observation 1: For short-channel devices, at higher electric fields, the device enters velocity saturation, causing Ids to remain constant as Vds increases. Here, Ids becomes a linear function of Vgs, unlike the quadratic dependence in long-channel devices.
+- Observation 2: Velocity saturation causes the device to saturate earlier.
+
+
+
+
+
+
+
+
+
 ### LABS
 
 #### SPICE simulation for lower nodes and velocity saturation effect
