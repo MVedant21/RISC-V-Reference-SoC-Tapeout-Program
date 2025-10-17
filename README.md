@@ -2119,7 +2119,7 @@ Below are the generated graphs.
 <details>
 <summary><b> Day1 - Introduction to Circuit Design and SPICE Simulations </b></summary>
 
-### Why do we need SPICE simulations?
+## Why do we need SPICE simulations?
 
 SPICE simulations verify circuit behavior and performance before implementation. In circuit design, logic gates like NAND, NOR, and NOT are built using NMOS and PMOS transistors.
 
@@ -2137,9 +2137,9 @@ SPICE ensures the circuit meets functionality, timing, and power requirements.
 ![Alt text](w4.1.jpg)
 
 
-### LABS
+## LABS
 
-#### SPICE Lab with Sky130 Models
+### SPICE Lab with Sky130 Models
 
 To use SPICE with Sky130 technology, you have to clone the below GitHub repository containing Sky130 models and circuits for simulation.
 ```
@@ -2163,7 +2163,7 @@ This file provides the corner model for the NFET, used for simulating different 
 This library file contains all the SPICE models for components in the Sky130 process node.
 
 
-#### Ids vs Vds over constant Vgs plot
+### Ids vs Vds over constant Vgs plot
 
 Code.
 ```
@@ -2213,12 +2213,10 @@ The below images show the terminal output along with plots.
 
 
 <details>
-<summary><b> Day2 - Introduction to Circuit Design and SPICE Simulations </b></summary>
+<summary><b> Day2 - SPICE SIMULATION FOR LOWER NODES AND VELOCITY SATURATION EFFECT </b></summary>
 
 
-### SPICE SIMULATION FOR LOWER NODES AND VELOCITY SATURATION EFFECT
-
-#### SPICE simulation for lower nodes
+## SPICE SIMULATION FOR LOWER NODES AND VELOCITY SATURATION EFFECT
 
 ![Alt text](w4.9.jpg)
 
@@ -2251,17 +2249,15 @@ Velocity Saturation Drain Current Model:
 ![Alt text](w4.16.jpg)
 
 
-#### OBSERVATIONS
+### OBSERVATIONS
 
 - Observation 1: For short-channel devices, at higher electric fields, the device enters velocity saturation, causing Ids to remain constant as Vds increases. Here, Ids becomes a linear function of Vgs, unlike the quadratic dependence in long-channel devices.
 - Observation 2: Velocity saturation causes the device to saturate earlier.
 
 
-### LABS
+## LABS
 
-#### SPICE simulation for lower nodes and velocity saturation effect
-
-#### Id vs Vds PLOT
+### Id vs Vds PLOT
 
 Code.
 ```
@@ -2304,7 +2300,7 @@ The below images show the terminal output along with plots.
 
 
 
-#### Id vs Vgs PLOT
+### Id vs Vgs PLOT
 
 Code.
 ```
