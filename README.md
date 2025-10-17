@@ -2165,6 +2165,33 @@ This library file contains all the SPICE models for components in the Sky130 pro
 
 #### Ids vs Vds over constant Vgs plot
 
+Code.
+```
+*Model Description
+.param temp=27
+
+*Including sky130 library files
+.lib "sky130_fd_pr/models/sky130.lib.spice" tt
+
+*Netlist Description
+ XM1 Vdd n1 0 0 sky130_fd_pr__nfet_01v8 w=5 l=2
+ R1 n1 in 55
+ Vdd vdd 0 1.8V
+ Vin in 0 1.8V
+
+*simulation commands
+.op
+.dc Vdd 0 1.8 0.1 Vin 0 1.8 0.2
+
+.control
+
+ run
+ display
+setplot dc1
+.endc
+.end
+```
+
 Use the below commands.
 ```
 ngspice day1_nfet_idvds_L2_W5.spice
@@ -2180,6 +2207,102 @@ The below images show the terminal output along with plots.
 ![Alt text](w4.4.jpg)
 
 
+</details>
+
+
+
+
+<details>
+<summary><b> Day2 - Introduction to Circuit Design and SPICE Simulations </b></summary>
+
+
+### LABS
+
+#### SPICE simulation for lower nodes and velocity saturation effect
+
+#### Id vs Vds PLOT
+
+Code.
+```
+*Model Description
+.param temp=27
+
+*Including sky130 library files
+.lib "sky130_fd_pr/models/sky130.lib.spice" tt
+
+*Netlist Description
+XM1 Vdd n1 0 0 sky130_fd_pr__nfet_01v8 w=0.39 l=0.15
+R1 n1 in 55
+Vdd vdd 0 1.8V
+Vin in 0 1.8V
+
+*simulation commands
+.op
+.dc Vdd 0 1.8 0.1 Vin 0 1.8 0.2
+
+.control
+
+run
+display
+setplot dc1
+.endc
+.end
+```
+
+Use the below commands.
+```
+ngspice day2_nfet_idvds_L015_W039.spice
+plot -vdd#branch
+```
+
+The below images show the terminal output along with plots.
+
+![Alt text](w4.5.jpg)
+
+![Alt text](w4.6.jpg)
+
+
+
+#### Id vs Vgs PLOT
+
+Code.
+```
+*Model Description
+.param temp=27
+
+*Including sky130 library files
+.lib "sky130_fd_pr/models/sky130.lib.spice" tt
+
+*Netlist Description
+XM1 Vdd n1 0 0 sky130_fd_pr__nfet_01v8 w=0.39 l=0.15
+R1 n1 in 55
+Vdd vdd 0 1.8V
+Vin in 0 1.8V
+
+*simulation commands
+.op
+.dc Vin 0 1.8 0.1 
+
+.control
+
+run
+display
+setplot dc1
+.endc
+.end
+```
+
+Use the below commands.
+```
+ngspice day2_nfet_idvgs_L015_W039.spice
+plot -vdd#branch
+```
+
+The below images show the terminal output along with plots.
+
+![Alt text](w4.7.jpg)
+
+![Alt text](w4.8.jpg)
 
 
 </details>
