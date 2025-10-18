@@ -2554,7 +2554,73 @@ The time difference (measured at 50% of input-output transition) between the inp
 
 
 <details>
-<summary><b> Day3 - Static Behavior Evaluation: CMOS Inverter Robustness and Noise Margin </b></summary>
+<summary><b> Day4 - Static Behavior Evaluation: CMOS Inverter Robustness and Noise Margin </b></summary>
+
+## CMOS Inverter Robustness and Noise Margin
+
+- Introduction to Noise Margin:
+	- Noise margin is the maximum noise voltage a CMOS circuit can tolerate without logic errors.
+	- If noise amplitude is below the noise margin, it is attenuated through the logic gate, ensuring error-free signal transmission.
+
+- Function of Noise Margin:
+	- Ensures signals with small noise added to logic 1 remain as logic 1 and those with noise on logic 0 remain as logic 0.
+
+- Application:
+	- Consider two back-to-back CMOS inverters.
+	- The voltage transfer curve (VTC) determines noise margins:
+
+
+### Noise Margin: VIL and VIH Points
+
+- Definition:
+	- `VIL` and `VIH` are operational points where the slope of the voltage transfer curve (VTC) is `-1.`
+	- These points correspond to the gain of the inverter being equal to -1.
+ 
+- Logic Recognition:
+	- Input voltage `0 to VIL` → Recognized as `Logic 0.`
+	- Input voltage `VIH to VDD` → Recognized as `Logic 1.`
+
+
+### Noise Margins in CMOS Logic Gates
+
+1) Conditions for Proper Operation:
+
+- The following conditions must hold for a logic gate to function correctly in the presence of noise:
+```
+VOL_MAX < VIL_MAX  
+VOH_MIN > VIH_MIN  
+```
+
+2) Behavior in Different Input Ranges:
+
+- For Vin ≤ VIL:
+The inverter gain magnitude is less than unity, resulting in minimal output change for a given input change.
+
+- For Vin ≥ VIH:
+The gain magnitude is also less than unity, leading to minimal output change.
+
+- For VIL < Vin < VIH:
+The gain magnitude exceeds unity, causing significant output changes. This range is called the undefined region because noise signals pushing Vin into this range may introduce errors.
+
+3) Noise Margin Equations:
+
+- Low-Level Noise Margin (NML):
+```
+NML = VIL_MAX - VOL_MAX
+```
+
+- High-Level Noise Margin (NMH):
+```
+NMH = VOH_MIN - VIH_MIN
+```
+
+- Overall Noise Margin (NM):
+```
+NM = Min(NML, NMH)  
+```
+
+The above noise margins define the tolerance of a circuit to noise without compromising its logical operation.
+
 
 ![Alt text](w4.32.jpg)
 
@@ -2563,6 +2629,8 @@ The time difference (measured at 50% of input-output transition) between the inp
 ![Alt text](w4.34.jpg)
 
 ![Alt text](w4.35.jpg)
+
+Noise Margin Robustness against variations in Device Ratio.
 
 ![Alt text](w4.36.jpg)
 
