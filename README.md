@@ -2544,3 +2544,78 @@ The below images show the terminal output along with plots.
 The time difference (measured at 50% of input-output transition) between the input signal change and the corresponding output signal switch in a logic gate (e.g., inverter).
 
 </details>
+
+
+
+
+
+
+
+
+
+<details>
+<summary><b> Day3 - Static Behavior Evaluation: CMOS Inverter Robustness and Noise Margin </b></summary>
+
+![Alt text](w4.32.jpg)
+
+![Alt text](w4.33.jpg)
+
+![Alt text](w4.34.jpg)
+
+![Alt text](w4.35.jpg)
+
+![Alt text](w4.36.jpg)
+
+
+
+
+## LABS
+
+### Static behavior evaluation: CMOS inverter robustness, Noise margin
+
+Code.
+```
+*Model Description
+.param temp=27
+
+*Including sky130 library files
+.lib "sky130_fd_pr/models/sky130.lib.spice" tt
+
+*Netlist Description
+XM1 out in vdd vdd sky130_fd_pr__pfet_01v8 w=1 l=0.15
+XM2 out in 0 0 sky130_fd_pr__nfet_01v8 w=0.36 l=0.15
+
+Cload out 0 50fF
+
+Vdd vdd 0 1.8V
+Vin in 0 1.8V
+
+*simulation commands
+.op
+.dc Vin 0 1.8 0.01
+
+.control
+run
+setplot dc1
+display
+.endc
+.end
+```
+
+Use the below commands.
+```
+ngspice day4_inv_noisemargin_wp1_wn036.spice
+plot out vs in
+```
+
+The below images show the terminal output along with plots.
+
+![Alt text](w4.37.jpg)
+
+![Alt text](w4.38.jpg)
+
+![Alt text](w4.39.jpg)
+
+
+
+</details>
