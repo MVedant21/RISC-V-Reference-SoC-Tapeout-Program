@@ -2585,39 +2585,39 @@ The time difference (measured at 50% of input-output transition) between the inp
 
 1) Conditions for Proper Operation:
 
-- The following conditions must hold for a logic gate to function correctly in the presence of noise:
-```
-VOL_MAX < VIL_MAX  
-VOH_MIN > VIH_MIN  
-```
+	- The following conditions must hold for a logic gate to function correctly in the presence of noise:
+	```
+	VOL_MAX < VIL_MAX  
+	VOH_MIN > VIH_MIN  
+	```
 
 2) Behavior in Different Input Ranges:
 
-- For Vin ≤ VIL:
-The inverter gain magnitude is less than unity, resulting in minimal output change for a given input change.
-
-- For Vin ≥ VIH:
-The gain magnitude is also less than unity, leading to minimal output change.
-
-- For VIL < Vin < VIH:
-The gain magnitude exceeds unity, causing significant output changes. This range is called the undefined region because noise signals pushing Vin into this range may introduce errors.
+	- For Vin ≤ VIL:
+	The inverter gain magnitude is less than unity, resulting in minimal output change for a given input change.
+	
+	- For Vin ≥ VIH:
+	The gain magnitude is also less than unity, leading to minimal output change.
+	
+	- For VIL < Vin < VIH:
+	The gain magnitude exceeds unity, causing significant output changes. This range is called the undefined region because noise signals pushing Vin into this range may introduce errors.
 
 3) Noise Margin Equations:
 
-- Low-Level Noise Margin (NML):
-```
-NML = VIL_MAX - VOL_MAX
-```
-
-- High-Level Noise Margin (NMH):
-```
-NMH = VOH_MIN - VIH_MIN
-```
-
-- Overall Noise Margin (NM):
-```
-NM = Min(NML, NMH)  
-```
+	- Low-Level Noise Margin (NML):
+	```
+	NML = VIL_MAX - VOL_MAX
+	```
+	
+	- High-Level Noise Margin (NMH):
+	```
+	NMH = VOH_MIN - VIH_MIN
+	```
+	
+	- Overall Noise Margin (NM):
+	```
+	NM = Min(NML, NMH)  
+	```
 
 The above noise margins define the tolerance of a circuit to noise without compromising its logical operation.
 
