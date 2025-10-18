@@ -2380,6 +2380,71 @@ The below images show the terminal output along with plots.
 <details>
 <summary><b> Day3 - SPICE dynamic simulation and CMOS switching threshold </b></summary>
 
+## Voltage Transfer Characteristics: SPICE Simulations
+
+For a CMOS inverter, the SPICE deck includes:
+- Component Connectivity: Define connections between components like PMOS, NMOS, Vdd, Vss, and Vin/Vout.
+- Component Values: Specify values for components such as threshold voltages (Vth), transistor sizes, and supply voltages.
+- Identify Nodes: Identify all electrical nodes like Vin, Vout, source, drain, and bulk for both transistors.
+- Name Nodes: Assign names to each node, ensuring clear identification during simulations (e.g., Vout for the output node).
+
+![Alt text](w4.23.jpg)
+
+### SPICE simulation for CMOS inverter
+
+SPICE Netlist for CMOS Inverter A SPICE netlist for a CMOS inverter includes transistor models, power supply connections, input voltage source, transistor specifications (PMOS and NMOS), and simulation commands (e.g., `.tran` for transient analysis).
+
+### Static Behavior Evaluation: CMOS Inverter Robustness and Switching Threshold (Vm)
+
+The **switching threshold (Vm)** is the point where `Vin = Vout`, and both transistors are in saturation (since `Vds = Vgs`). At **Vm**, maximum power is drawn due to large current, and it can be graphically found at the intersection of the VTC with the Vin = Vout line. The analytical expression for Vm is obtained by equating the drain currents of PMOS and NMOS (`IDSn = IDSp`).
+
+![Alt text](w4.24.jpg)
+
+![Alt text](w4.25.jpg)
+
+
+In the **velocity-saturated** case, the switching threshold (Vm) is the point where both NMOS and PMOS transistors are in saturation, and the drain currents are equal. This occurs when the VDS of both devices is less than the saturation voltage, i.e., `VDSAT < (Vm − VT)`. The threshold voltage Vm can be derived by equating the drain currents of both transistors, with the device widths and lengths (W/L ratios) playing a key role in determining the point where both transistors conduct equally.
+
+![Alt text](w4.26.jpg)
+
+![Alt text](w4.27.jpg)
+
+![Alt text](w4.28.jpg)
+
+
+### Velocity Saturation and Switching Threshold (Vm) Analysis
+
+- Case 1: Velocity Saturation Occurs
+	- Happens in short-channel devices or high supply voltage.
+	- Switching threshold Vm occurs when currents of PMOS and NMOS transistors are equal.
+	- The ratio r (PMOS to NMOS strength) influences Vm.
+	- For Vm ≈ VDD/2, r ≈ 1.
+	- Vm can be adjusted by changing the PMOS or NMOS width:
+		- Increase PMOS width → shift Vm upwards.
+		- Increase NMOS width → shift Vm downwards.
+
+- Case 2: Velocity Saturation Does Not Occur
+	- Applies to long-channel devices or low supply voltage.
+	- The switching threshold Vm is still affected by r but with a simpler formula.
+	- If r ≈ 1, Vm is near VDD/2.
+
+- PMOS Width Effect on VTC
+	- Increasing PMOS width shifts Vm upwards.
+	- Increasing NMOS width shifts Vm downwards.
+	- Vm is relatively stable with small variations in transistor ratios.
+
+
+![Alt text](w4.29.jpg)
+
+
+### Applications of CMOS inverter in clock network and STA
+
+![Alt text](w4.30.jpg)
+
+![Alt text](w4.31.jpg)
+
+
+
 
 ## LABS
 
