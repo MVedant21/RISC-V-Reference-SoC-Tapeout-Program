@@ -2687,3 +2687,130 @@ The below images show the terminal output along with plots.
 
 
 </details>
+
+
+
+
+
+
+
+
+<details>
+<summary><b> Day5 - CMOS power supply and device variation robustness evaluation </b></summary>
+
+## LABS
+
+### Smart SPICE simulation for power supply variations
+
+Code.
+```
+*Model Description
+.param temp=27
+
+*Including sky130 library files
+.lib "sky130_fd_pr/models/sky130.lib.spice" tt
+
+*Netlist Description
+XM1 out in vdd vdd sky130_fd_pr__pfet_01v8 w=1 l=0.15
+XM2 out in 0 0 sky130_fd_pr__nfet_01v8 w=0.36 l=0.15
+
+Cload out 0 50fF
+
+Vdd vdd 0 1.8V
+Vin in 0 1.8V
+
+.control
+let powersupply = 1.8
+alter Vdd = powersupply
+    let voltagesupplyvariation = 0
+    dowhile voltagesupplyvariation < 6
+        dc Vin 0 1.8 0.01
+        let powersupply = powersupply - 0.2
+        alter Vdd = powersupply
+        let voltagesupplyvariation = voltagesupplyvariation + 1
+    end
+
+plot dc1.out vs in dc2.out vs in dc3.out vs in dc4.out vs in dc5.out vs in dc6.out vs in xlabel "input voltage(V)" ylabel "output voltage(V)" title "Inverter dc characteristics as a function of supply voltage"
+
+.endc
+.end
+```
+
+Use the below commands to get the output.
+```
+ngspice day5_inv_supplyvariation_Wp1_Wn036.spice
+```
+
+The below images show the terminal output along with plots.
+
+![Alt text](w4.40.jpg)
+
+![Alt text](w4.41.jpg)
+
+
+
+### CMOS Inverter Robustness: Extreme Device Width Variation
+- Robustness to Width Variation:
+
+	The CMOS inverter remains functional even under extreme variations in device width (W) due to its static behavior properties.
+
+- Effect on Switching Threshold:
+  
+	Large deviations in device width primarily affect the switching threshold ( V_M ) but do not drastically impact the inverter's ability to operate as a logic gate.
+
+- Impact on Noise Margins:
+
+	Variations in width cause asymmetry in the noise margins, with one margin (high or low) reducing while the other increases.
+
+- Key Insight:
+
+	The CMOS inverter exhibits robust static behavior, tolerating extreme width variations without functional failure
+
+
+![Alt text](w4.42.jpg)
+
+
+Code.
+```
+*Model Description
+.param temp=27
+
+*Including sky130 library files
+.lib "sky130_fd_pr/models/sky130.lib.spice" tt
+
+*Netlist Description
+XM1 out in vdd vdd sky130_fd_pr__pfet_01v8 w=7 l=0.15
+XM2 out in 0 0 sky130_fd_pr__nfet_01v8 w=0.42 l=0.15
+
+Cload out 0 50fF
+
+Vdd vdd 0 1.8V
+Vin in 0 1.8V
+
+*simulation commands
+.op
+.dc Vin 0 1.8 0.01
+
+.control
+run
+setplot dc1
+display
+.endc
+.end
+```
+
+
+Use the below commands to get the output.
+```
+ngspice day5_inv_device_variation_Wp1_Wn036.spice
+plot out vs in
+```
+
+The below images show the terminal output along with plots.
+
+![Alt text](w4.43.jpg)
+
+![Alt text](w4.44.jpg)
+
+
+</details>
