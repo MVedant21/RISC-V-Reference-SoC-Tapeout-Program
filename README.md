@@ -2698,6 +2698,82 @@ The below images show the terminal output along with plots.
 <details>
 <summary><b> Day5 - CMOS power supply and device variation robustness evaluation </b></summary>
 
+
+## Static Behavior Evaluation: CMOS Inverter Robustness - Power Supply Variation
+
+Overview:
+- Power supply scaling affects the static behavior of the CMOS inverter, including the switching threshold, noise margins, and overall robustness.
+
+Smart SPICE Simulation:
+- Simulate the CMOS inverter across different supply voltage values (VDD).
+- Analyze how the voltage transfer characteristics (VTC) and critical parameters (like VM and noise margins) shift with varying power supply.
+
+Key Observations:
+- As VDD decreases, the switching threshold (VM) may shift closer to the center of the supply range, but noise margins reduce.
+- Lower power supply reduces overall noise immunity and can impact performance.
+- At higher VDD, both static power dissipation and noise margins increase.
+
+![Alt text](w4.42.jpg)
+
+
+### Simulation Observations: Power Supply Variations
+
+Robust Operation at Lower VDD:
+- The CMOS inverter operates effectively even at 0.8V, which is below half the original supply voltage (1.8V) and close to the transistor threshold voltages.
+  
+Switching Threshold Proportionality:
+- With a fixed transistor ratio (r), the switching threshold (VM) is approximately proportional to VDD.
+
+Gain in Transition Region:
+- The inverter gain in the transition region increases as the supply voltage decreases.
+
+Transition Region Width:
+- The width of the transition region reduces when the supply voltage is scaled down from the original VDD.
+
+
+![Alt text](w4.45.jpg)
+
+![Alt text](w4.46.jpg)
+
+
+### Limitations of Operating at Low Supply Voltages
+
+Performance Degradation:
+- Lowering the supply voltage reduces energy dissipation but significantly increases gate transition times, negatively affecting performance.
+
+Parameter Sensitivity:
+- At low supply voltages, the DC characteristics become highly sensitive to variations in device parameters, such as transistor threshold voltages.
+
+Reduced Signal Swing:
+- Scaling VDD reduces signal swing, lowering internal noise (e.g., crosstalk) but increasing sensitivity to external noise sources, which do not scale proportionally. 
+
+
+### CMOS Inverter Robustness to Device Variations
+Design vs. Real Operating Conditions:
+- Gates are designed for nominal conditions, but actual operating temperatures and device parameters can vary widely after fabrication.
+
+DC Characteristics Stability:
+- The DC characteristics of the CMOS inverter are relatively insensitive to variations in device parameters, allowing the gate to remain functional across a broad range of operating conditions.
+
+Sources of Variation:
+- One common source of variation is the etching process during fabrication, which can affect device parameters.
+
+
+![Alt text](w4.47.jpg)
+
+![Alt text](w4.48.jpg)
+
+![Alt text](w4.49.jpg)
+
+
+### Sources of variation: Oxide Thickness
+
+![Alt text](w4.50.jpg)
+
+![Alt text](w4.51.jpg)
+
+
+
 ## LABS
 
 ### Smart SPICE simulation for power supply variations
