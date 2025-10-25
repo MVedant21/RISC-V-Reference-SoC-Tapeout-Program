@@ -2999,22 +2999,22 @@ Inside the flow/ Directory
 ### RTL2GDS Flow for VSDBabySoC: Initial Steps
 
 1) Create Directories:
-- Inside `OpenROAD-flow-scripts/flow/designs/sky130hd/`, create a folder named vsdbabysoc.
-- Create another folder named vsdbabysoc in `OpenROAD-flow-scripts/flow/designs/src/` and place all Verilog files here.
+	- Inside `OpenROAD-flow-scripts/flow/designs/sky130hd/`, create a folder named vsdbabysoc.
+	- Create another folder named vsdbabysoc in `OpenROAD-flow-scripts/flow/designs/src/` and place all Verilog files here.
 
 2) Copy Folders:
-- From your VSDBabySoC folder, copy the following folders into sky130hd/vsdbabysoc:
-	- gds: Contains `avsddac.gds`, `avsdpll.gds`.
-	- include: Contains `sandpiper.vh`, `sandpiper_gen.vh`, `sp_default.vh`, `sp_verilog.vh`.
-	- lef: Contains `avsddac.lef`, `avsdpll.lef`.
-	- lib: Contains `avsddac.lib`, `avsdpll.lib`.
+	- From your VSDBabySoC folder, copy the following folders into sky130hd/vsdbabysoc:
+		- gds: Contains `avsddac.gds`, `avsdpll.gds`.
+		- include: Contains `sandpiper.vh`, `sandpiper_gen.vh`, `sp_default.vh`, `sp_verilog.vh`.
+		- lef: Contains `avsddac.lef`, `avsdpll.lef`.
+		- lib: Contains `avsddac.lib`, `avsdpll.lib`.
 
 3) Copy Constraint and Configuration Files:
-- Copy `vsdbabysoc_synthesis.sdc` into `sky130hd/vsdbabysoc`.
-- Copy `macro.cfg` and `pin_order.cfg` into `sky130hd/vsdbabysoc`.
+	- Copy `vsdbabysoc_synthesis.sdc` into `sky130hd/vsdbabysoc`.
+	- Copy `macro.cfg` and `pin_order.cfg` into `sky130hd/vsdbabysoc`.
 
 4) Create Config File:
-- Create a `config.mk` file in `sky130hd/vsdbabysoc` with the required configuration details.
+	- Create a `config.mk` file in `sky130hd/vsdbabysoc` with the required configuration details.
 
 
 `config.mk`
