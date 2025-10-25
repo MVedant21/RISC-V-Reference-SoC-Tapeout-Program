@@ -2888,5 +2888,104 @@ The below images show the terminal output along with plots.
 
 ![Alt text](w4.44.jpg)
 
+</details>
+
+
+
+
+
+
+
+
+# WEEK 5
+<details>
+<summary><b> Day1 - VSD Hardware Design Program </b></summary>
+
+## OpenROAD installation guide
+
+1. Clone the OpenROAD Repository
+
+```
+git clone --recursive https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts
+cd OpenROAD-flow-scripts
+```
+
+![Alt text](w5.1.jpg)
+
+2. Run the Setup Script
+
+```
+sudo ./setup.sh
+```
+
+![Alt text](w5.2.jpg)
+
+3. Build OpenROAD
+
+```
+./build_openroad.sh --local
+```
+
+![Alt text](w5.3.jpg)
+
+4. Verify Installation
+
+```
+source ./env.sh
+yosys -help  
+openroad -help
+```
+
+![Alt text](w5.4.jpg)
+
+![Alt text](w5.5.jpg)
+
+5. Run the OpenROAD Flow
+
+```
+cd flow
+make
+```
+
+![Alt text](w5.6.jpg)
+
+6. Launch the graphical user interface (GUI) to visualize the final layout
+
+```
+ make gui_final
+```
+
+![Alt text](w5.7.jpg)
+
+
+### ORFS Directory Structure and File formats
+
+OpenROAD-flow-scripts/
+
+```
+├── OpenROAD-flow-scripts             
+│   ├── docker           -> It has Docker based installation, run scripts and all saved here
+│   ├── docs             -> Documentation for OpenROAD or its flow scripts.  
+│   ├── flow             -> Files related to run RTL to GDS flow  
+|   ├── jenkins          -> It contains the regression test designed for each build update
+│   ├── tools            -> It contains all the required tools to run RTL to GDS flow
+│   ├── etc              -> Has the dependency installer script and other things
+│   ├── setup_env.sh     -> Its the source file to source all our OpenROAD rules to run the RTL to GDS flow
+```
+
+Inside the flow/ Directory
+
+```
+├── flow           
+│   ├── design           -> It has built-in examples from RTL to GDS flow across different technology nodes
+│   ├── makefile         -> The automated flow runs through makefile setup
+│   ├── platform         -> It has different technology note libraries, lef files, GDS etc 
+|   ├── tutorials        
+│   ├── util            
+│   ├── scripts                 
+```
+
+![Alt text](w5.8.jpg)
+
 
 </details>
