@@ -2987,5 +2987,38 @@ Inside the flow/ Directory
 
 ![Alt text](w5.8.jpg)
 
+</details>
+
+
+
+
+
+<details>
+<summary><b> Day2 - Floorplan and Placement of VSDBabySoC in OpenROAD </b></summary>
+
+### RTL2GDS Flow for VSDBabySoC: Initial Steps
+
+1) Create Directories:
+- Inside `OpenROAD-flow-scripts/flow/designs/sky130hd/`, create a folder named vsdbabysoc.
+- Create another folder named vsdbabysoc in `OpenROAD-flow-scripts/flow/designs/src/` and place all Verilog files here.
+
+2) Copy Folders:
+- From your VSDBabySoC folder, copy the following folders into sky130hd/vsdbabysoc:
+	- gds: Contains `avsddac.gds`, `avsdpll.gds`.
+	- include: Contains `sandpiper.vh`, `sandpiper_gen.vh`, `sp_default.vh`, `sp_verilog.vh`.
+	- lef: Contains `avsddac.lef`, `avsdpll.lef`.
+	- lib: Contains `avsddac.lib`, `avsdpll.lib`.
+
+3) Copy Constraint and Configuration Files:
+- Copy `vsdbabysoc_synthesis.sdc` into `sky130hd/vsdbabysoc`.
+- Copy `macro.cfg` and `pin_order.cfg` into `sky130hd/vsdbabysoc`.
+
+4) Create Config File:
+- Create a `config.mk` file in `sky130hd/vsdbabysoc` with the required configuration details.
+
+
+`config.mk`
+
+This script sets up environment variables and configurations for the design and synthesis of a System-on-Chip (SoC) using the OpenROAD flow. The design is based on the "vsdbabysoc" and targets the "sky130hd" platform.
 
 </details>
