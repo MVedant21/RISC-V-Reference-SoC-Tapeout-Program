@@ -3064,5 +3064,59 @@ Binary Instructions (bits) → executed by hardware
 Chip Layout (Physical Representation)
 ```
 
+## Process Design Kit (PDK)
+
+A **Process Design Kit (PDK)** is a collection of files that **model a semiconductor fabrication process** for Electronic Design Automation (EDA) tools. It is essential for designing integrated circuits (ICs) that are manufacturable.
+
+| Component | Description |
+| :--- | :--- |
+| **Process Design Rules** | Rules governing the physical layout of the IC. Includes files for: |
+| | - **DRC** (Design Rule Check) |
+| | - **LVS** (Layout Versus Schematic) |
+| | - **PEX** (Parasitic Extraction) |
+| **Device Models** | Mathematical models (e.g., SPICE models) describing the electrical behavior of transistors and other devices at different operating conditions. |
+| **Digital Standard Libraries** | Characterized data (timing, power, noise) for the basic logic gates (**standard cells**), allowing EDA tools to synthesize and optimize the design. |
+| **I/O Libraries** | Characterized data for input/output buffer cells used to interface the core logic with the outside world. |
+
+
+## RTL-to-GDSII Design Flow (Physical Design)
+
+The RTL-to-GDSII flow converts the high-level design description (RTL) into a final, manufacturable layout format (GDSII).
+
+### 1. Synthesis
+* **Goal:** Convert the Register-Transfer Level (RTL) Hardware Description Language (HDL) code (e.g., VHDL, Verilog) into a **gate-level netlist**.
+* **Process:** Maps the RTL logic to the specific primitive logic gates found in the **digital standard libraries** (from the PDK).
+
+### 2. Floorplanning
+* **Goal:** Define the chip's physical structure.
+* **Process:** Determines **chip dimensions**, fixes major **pin locations**, and defines the legal areas for standard cells (**row definitions**).
+
+### 3. Power Planning
+* **Goal:** Create a robust distribution network for power ($V_{DD}$) and ground ($V_{SS}$).
+* **Process:** Adds **power pads**, builds wide **power rings** around the core, and implements a grid of **power straps** across the core to ensure stable voltage supply to all cells.
+
+### 4. Placement
+* **Goal:** Position the standard cells onto the chip's core area.
+* **Process:** Places the cells onto the predefined floorplan **rows**, aligning them with the legal placement **sites** (involves both global and detailed optimization).
+
+### 5. Clock Tree Synthesis (CTS)
+* **Goal:** Create a balanced, low-skew clock distribution network.
+* **Process:** Builds a dedicated network (a 'tree') to deliver the clock signal simultaneously to all sequential elements (e.g., flip-flops) with minimal timing differences (skew).
+
+### 6. Routing
+* **Goal:** Implement the necessary interconnects (wires) between all standard cells.
+* **Process:** Uses the available **metal layers** (defined by the PDK) to form all signal and power connections, respecting the routing grid and design rules (involves global and detailed routing phases).
+
+### 7. Sign-Off
+* **Goal:** Verify the final layout against all design constraints to ensure manufacturability and performance.
+* **Key Checks:**
+    * **DRC** (Design Rule Check): Checks the physical layout against the geometric rules of the fab process.
+    * **LVS** (Layout Versus Schematic): Verifies that the physical layout accurately matches the original gate-level netlist.
+    * **STA** (Static Timing Analysis): Confirms that the design meets all required timing constraints (setup and hold times) under various conditions.
+
+
+### **Final Output:**
+The successful completion of the sign-off process results in the **GDSII** file—the final layout data used by the fabrication plant (fab).
+
 
 </details>
