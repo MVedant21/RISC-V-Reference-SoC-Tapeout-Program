@@ -3022,3 +3022,47 @@ Inside the flow/ Directory
 This script sets up environment variables and configurations for the design and synthesis of a System-on-Chip (SoC) using the OpenROAD flow. The design is based on the "vsdbabysoc" and targets the "sky130hd" platform.
 
 </details>
+
+
+
+
+
+
+
+
+
+# WEEK 6
+<details>
+<summary><b> Day1 - Inception of Open soure EDA, OpenLANE, Sky130 PDK </b></summary>
+
+## Chip Design Overview (Arduino Example)
+
+### Package & Structure
+- **Package:** `7 mm × 7 mm`
+- **Wire Bonds:** Connect output terminals of the die (chip) to the package pins.
+- **Pads:** Metal terminals on the chip through which **signals (s/g)** are sent or received.
+- **Core of Chip:** Contains the **logical part** of the circuit (digital logic).
+- **Foundry IPs:** Pre-designed components provided by the foundry:
+  - `SRAM` – Static Random Access Memory  
+  - `DAC` – Digital-to-Analog Converter  
+  - `ADC` – Analog-to-Digital Converter  
+- **Macros:** Reusable, larger functional blocks (e.g., memory blocks, PLLs).
+
+
+## RISC-V ISA (Instruction Set Architecture)
+
+### Software → Hardware Flow
+```text
+C Program 
+   ↓
+Compiler → Assembly Language Program 
+   ↓
+Assembler → Machine Language Program (binary instructions)
+   ↓
+Binary Instructions (bits) → executed by hardware
+   ↓
+Chip Layout (Physical Representation)
+```
+
+
+</details>
