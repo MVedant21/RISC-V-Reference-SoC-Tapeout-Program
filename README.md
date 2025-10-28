@@ -3279,13 +3279,58 @@ Process Design Kits(PDKs) : The foundry provides this PDK file which consists of
 
 2. Design Steps
 - **Circuit Design** : Designing the circuit on the basis of the function given and in accordance with the constraints mentioned in the PDK file. 
-- **Layout Design** : Generate Euler's path from the circuit designed and get the stick diagram for the circuit.
+- **Layout Design** : Generate Euler's path from the circuit designed and get the stick diagram for the circuit. You also get the information of the capacitance and resistances of each and every metal layer and contacts.
 - **Characterization** : Step where we get our timing, noise and power information.
 
-4. Outputs
+3. Outputs
 - The output of the Circuit design is a Circuit Description Language(CDL) file.
 - The output of the Layout design is GDSII file, LEF file, extracted SPICE netlist(.cir).
 - The output of the Characterization step is timing, noise and power .libs and functionality of the circuit.
 
+
+## Characterization Flow
+
+The following are the eight steps involved in characterization:
+- Read the model files.
+- Read the extracted SPICE netlist.
+- Recognize the behaviour of the logic gates used.
+- Read the sub-circuits of the extracted SPICE netlist.
+- Attach the necessary power sources.
+- Apply the stimulus.
+- Provide the necessary output capacitances.
+- Provide the necessary simulation commands.
+
+
+## Timings Characterization
+
+1. Timing threshold definitions.
+- slew_low_rise_thr
+- slew_high_rise_thr
+- slew_low_fall_thr
+- slew_high_fall_thr
+- in_rise_thr
+- in_fall_thr
+- out_rise_thr
+- out_fall_thr
+
+The above eight steps are together filed and given as input to the GUNA software. This software generates timing, noise and power .libs
+
+2. Propogation Delay
+
+Propogation delay = time(out_*_thr) - time(in_*_thr)
+
+The image below show few examples of calculating Propogation Delay through simulations.
+
+![Alt text](w6.14.jpg)
+
+![Alt text](w6.15.jpg)
+
+3. Transition Time
+
+Transition time = time(slew_high_fall_thr) - time(slew_low_fall_thr) or transition time = time(slew_high_rise_thr) - time(slew_low_rise_thr).
+
+The image below shows an example calculating Transition time through simulation.
+
+![Alt text](w6.16.jpg)
 
 </details>
