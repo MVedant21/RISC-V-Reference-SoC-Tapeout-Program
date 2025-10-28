@@ -3264,5 +3264,27 @@ The image below shows how the placement can be done for the given netlist and fl
 ![Alt text](w6.13.jpg)
 
 
+# Cell design and characterization flows
+
+## Cell Design Flow
+
+Inputs -> Design Steps -> Outputs
+
+1. Inputs
+Process Design Kits(PDKs) : The foundry provides this PDK file which consists of DRC and LVS rules, SPICE models, library and user-defined specs.
+- **DRC and LVS rules** : Contains design rules such as constraints on poly width, poly to actice spacing, etc.
+- **SPICE models** : Threshold voltage equations, Linear region current equation, Saturation region current equation.
+- **Library and user-defined specs** : Cell height(Distance between the power and ground rail), Supply voltage, Metal layers, Pin location, Drawn gate length
+
+2. Design Steps
+- **Circuit Design** : Designing the circuit on the basis of the function given and in accordance with the constraints mentioned in the PDK file. 
+- **Layout Design** : Generate Euler's path from the circuit designed and get the stick diagram for the circuit.
+- **Characterization** : Step where we get our timing, noise and power information.
+
+4. Outputs
+- The output of the Circuit design is a Circuit Description Language(CDL) file.
+- The output of the Layout design is GDSII file, LEF file, extracted SPICE netlist(.cir).
+-  The output of the Characterization step is timing, noise and power .libs and functionality of the circuit.
+
 
 </details>
