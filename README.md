@@ -3271,6 +3271,7 @@ The image below shows how the placement can be done for the given netlist and fl
 Inputs -> Design Steps -> Outputs
 
 1. Inputs
+
 Process Design Kits(PDKs) : The foundry provides this PDK file which consists of DRC and LVS rules, SPICE models, library and user-defined specs.
 - **DRC and LVS rules** : Contains design rules such as constraints on poly width, poly to actice spacing, etc.
 - **SPICE models** : Threshold voltage equations, Linear region current equation, Saturation region current equation.
@@ -3284,7 +3285,7 @@ Process Design Kits(PDKs) : The foundry provides this PDK file which consists of
 4. Outputs
 - The output of the Circuit design is a Circuit Description Language(CDL) file.
 - The output of the Layout design is GDSII file, LEF file, extracted SPICE netlist(.cir).
--  The output of the Characterization step is timing, noise and power .libs and functionality of the circuit.
+- The output of the Characterization step is timing, noise and power .libs and functionality of the circuit.
 
 
 </details>
