@@ -3118,5 +3118,22 @@ The RTL-to-GDSII flow converts the high-level design description (RTL) into a fi
 ### **Final Output:**
 The successful completion of the sign-off process results in the **GDSII** file—the final layout data used by the fabrication plant (fab).
 
+Below image shows the OpenLANE ASIC flow
+
+![Alt text](w6.1.jpg)
+
+
+## Open Source tools
+Logic Equivalence Check - yosys
+
+Physical Implementation - OpenROAD
+
+Design for Testability(DFT) - FAULT
+
+Static Timing Analysis(STA) - OpenSTA
+
+Design Rule Check(DRC) - Magic
+
+Layour vs Schematic(LVS) - Magic and Netgen
 
 </details>
