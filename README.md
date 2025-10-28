@@ -3185,5 +3185,21 @@ Similarly there are other IP's also available like Memory, Comparator, Mux, etc.
 - These IP blocks have used-defined locations and hence are placed in a chip before placement and routing is done. Hence, they are called as pre-placed cells.
 - The remaining the logical cells are placed onto the core during P&R.
 
+Once the preplaced cells are assigned location during Floorplanning, they cannot be moved in the later stages.
+
+## De-coupling capacitors
+
+It acts as a local, high-speed energy reservoir. When a logic gate switches state (e.g., from 0 to 1), it draws a large, instantaneous surge of current. The inductance of the main power lines cannot supply this current fast enough, leading to a temporary voltage drop, known as `I.R` drop or ground bounce.
+
+The decap quickly discharges to supply this instantaneous current, locally stabilizing the $V_{DD}$ rail and preventing the power supply voltage from dropping significantly.
+
+By preventing the power supply ($V_{DD}$) from dropping during current surges, decaps ensure that the gates can maintain their proper output voltage levels ($V_{OH}$ and $V_{OL}$), which are fundamental to the noise margin calculation. A drop in $V_{DD}$ causes $V_{OH}$ to decrease, directly reducing the $NM_H$. 
+
+Similarly, ground bounce causes $V_{OL}$ to rise, reducing $NM_L$.By stabilizing the supply voltage, decaps minimize the noise injected into the power rails, thereby ensuring the logic gates operate with the intended, larger noise margins, preventing functional failures and improving overall circuit reliability.
+
+The image below shows how the decaps are placed around the preplaced cells.
+
+![Alt text](w6.7.jpg)
+
 
 </details>
