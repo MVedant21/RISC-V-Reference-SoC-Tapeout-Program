@@ -3187,6 +3187,7 @@ Similarly there are other IP's also available like Memory, Comparator, Mux, etc.
 
 Once the preplaced cells are assigned location during Floorplanning, they cannot be moved in the later stages.
 
+
 ## De-coupling capacitors
 
 It acts as a local, high-speed energy reservoir. When a logic gate switches state (e.g., from 0 to 1), it draws a large, instantaneous surge of current. The inductance of the main power lines cannot supply this current fast enough, leading to a temporary voltage drop, known as `I.R` drop or ground bounce.
@@ -3200,6 +3201,41 @@ Similarly, ground bounce causes $V_{OL}$ to rise, reducing $NM_L$.By stabilizing
 The image below shows how the decaps are placed around the preplaced cells.
 
 ![Alt text](w6.7.jpg)
+
+
+## Power Planning
+
+In the image below we see that there is only one power supply which is connected to the four macros. 
+
+![Alt text](w6.10.jpg)
+
+The issue in the above case is that each macro is connected to only one single power source. 
+
+For example when we have multiple bit changing from HIGH -> LOW, i.e. the capacitors are discharging. We have a single ground path where all this charge will be drained. This creates a ground bump leading to indefinite voltage levels hampering the logic. 
+
+Similarly, when multiple bits change from LOW -> HIGH, i.e. the capacitors are getting charged. Since, we have a single $V_{DD}$ path from where all these capacitors will be charged, it leads to indefinite voltage levels hampering the logic. 
+
+Hence, we need to design and place the power lines like in the image below to overcome this issue.
+
+![Alt text](w6.8.jpg)
+
+The image below shows the power grids are designed to ensure that there are immediate nearby power connections for the logic circuitry.
+
+![Alt text](w6.9.jpg)
+
+
+## Pin placement and logical cell placement blockage
+
+Input and Output pins are placed in the area between the core and the die. 
+
+The clk pins will be bigger in size compared to the other pins are they are responsible for driving the circuitry. Hence, to increase the speed, we increase the area and reduce the resistance.
+
+Post the pin placement, we block the area so that nothing is placed near the pins. This is called as the Logical cell placement blockage. Post this, the Floorplan is ready for the Placement and Routing stage as shown in the image below.
+
+![Alt text](w6.11.jpg)
+
+
+
 
 
 </details>
