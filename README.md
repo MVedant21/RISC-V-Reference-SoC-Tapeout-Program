@@ -3144,6 +3144,8 @@ Layour vs Schematic(LVS) - Magic and Netgen
 <details>
 <summary><b> Day2 - Good floorplan vs bad floorplan and introduction to library cells </b></summary>
 
+# Floorplanning and Powerplanning
+
 ## Utilization factor and aspect ratio
 Consider the below circuit as the example.
 
@@ -3235,6 +3237,31 @@ Post the pin placement, we block the area so that nothing is placed near the pin
 ![Alt text](w6.11.jpg)
 
 
+
+# Placement and Routing
+
+## Netlist binding and initial place design
+
+The image below shows that we have the netlist, the floorplan and physical view of the logical gates as the input for the Placement stage.
+
+![Alt text](w6.12.jpg)
+
+Once we have the floorplan, our next step is to use the libraries and match the requirements of the design. These libraries contain the delay information of different types of the same logic gate. Each logic gate will have different sizes in the libraries. The EDA tool chooses the appropriate size of the standard cell to meet the design constraints.
+
+Once these cells are chosen, the netlist is to be placed over the given floorplan. 
+
+
+## Optimizing the placement
+
+Once we have placed the netlist on the floorplan, before sending it Routing stage, we have to check for the capacitance of the interconnects, the intergrity of the signal and other things to ensure that placement is optimal and doesnt lead to any kind of failures.
+
+To deal with signal integrity we insert repeaters, so that the signal doesnt fade off between the logical circuitry and the functionality remains valid.
+
+Once the buffers and the blocks are placed over the floorplan, we check the timing constraints, frequency constraints, area constraints and other specifications to ensure that the placement is optimal. If not the placement is changed in accordance with the specifications.
+
+The image below shows how the placement can be done for the given netlist and floorplan.
+
+![Alt text](w6.13.jpg)
 
 
 
