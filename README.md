@@ -3137,3 +3137,53 @@ Design Rule Check(DRC) - Magic
 Layour vs Schematic(LVS) - Magic and Netgen
 
 </details>
+
+
+
+
+<details>
+<summary><b> Day2 - Good floorplan vs bad floorplan and introduction to library cells </b></summary>
+
+## Utilization factor and aspect ratio
+Consider the below circuit as the example.
+
+![Alt text](w6.2.jpg)
+
+A **core** is the section in the chip where the fundamental logic of the design is placed
+
+A **die**, which consists of the core, is small semiconductor material specimen on which the fundamental circuit is fabricated.
+
+**Utilization factor**  = area occupied by netlist / total area of the core.
+
+If utilization factor  = 1, it means 100% utilization is achieved.
+
+**Aspect ratio** = Height/width
+
+As per the below placement of the circuitry, the aspect ratio = 1 and the utilization factor = 1.
+
+![Alt text](w6.3.jpg)
+
+As per the below placement of the circuitry, the aspect ratio = 0.5 and the utilization factor = 0.5.
+
+![Alt text](w6.4.jpg)
+
+
+## Preplaced cells
+There are certain combinational circuits which consists of huge amounts of gates and implementing them in the actual netlist might not be feasible. These kind of combinational circuits are taken out of the main circuitry and implemented separately.
+
+Consider the below example where the combinational circuit is split into 2 different blocks and then later generalised a Black Box. This black box needs to be implemented once on the chip and then can be reused multiple times.
+
+![Alt text](w6.5.jpg)
+
+![Alt text](w6.6.jpg)
+
+These black boxes are now seprarated and considered as two separate IP's or modules.
+
+Similarly there are other IP's also available like Memory, Comparator, Mux, etc.
+
+- The arrangement of these IPs in a chip is referred to as Floorplanning.
+- These IP blocks have used-defined locations and hence are placed in a chip before placement and routing is done. Hence, they are called as pre-placed cells.
+- The remaining the logical cells are placed onto the core during P&R.
+
+
+</details>
