@@ -3334,3 +3334,59 @@ The image below shows an example calculating Transition time through simulation.
 ![Alt text](w6.16.jpg)
 
 </details>
+
+
+<details>
+<summary><b> Day3 - Design library cell using Magic Layout and ngspice characterization </b></summary>
+
+## CMOS fabrication process
+1. Selecting a Substrate.
+2. Create active region for transistors.
+	- We need to create insulation between the pockets i.e. the active transistors so that they donot interfere in each other's functionality.
+ 	- So, for that we first grow a silicon dioxide layer on our selected substrate.
+  	- Deposit a silicon nitride layer on silicon dioxide layer.
+   	- Then, deposit a layer of photoresist on the silicon nitride layer.
+   	- UV light is passed on the top of the layout. This leads to the removal of photoresist in the non-protected areas.
+   	- Remove the mask which was used to protect certain area. The silicon nitride will be etched in the part where mask was not used.
+   	- Remove the photoresist layer as silicon nitride itself will act as a protection layer to grow the oxides on the other areas.
+   	- The layour is now placed in oxidation furnace. Field oxide is grown. This process is called **LOCOS** (local oxidation of silicon).
+   	- Etch out all the silicon nitride left.
+  
+The images below shows the initial and final diagrams of this step.
+
+![Alt text](w6.17.jpg)
+
+![Alt text](w6.18.jpg)
+
+3. N-well and P-well formation.
+	- We now use another type of mask.. We repeat the process of UV light and remove the mask.
+ 	- Then we use Boron(p-type material) to create the P-well. This process is called **Ion Implantation**.
+  	- Repeat the above two steps using a different mask and create the N-well with the help of Phosphorous(n-type material).
+   	- Take complete structure to driving furnace so that the wells are well diffused.
+
+The images below shows the initial and final diagrams of this step.
+
+![Alt text](w6.19.jpg)
+
+![Alt text](w6.20.jpg)
+
+4. Formation of Gate
+	- Repeat steps done in 3, to form the small N and P wells.
+ 	- The original oxide layer is stripped using dilute hydrofluoric solution and new oxide layer is re-grown to give high quality oxide.
+  	- Add a polysilicon layer over the oxide layer and add n-type ion implants for low gate resistance.
+   	- Add another mask to create the gates and remove the polysilicon layer except where the mask was.
+
+The images below show the initial and final stage.
+
+![Alt text](w6.21.jpg)
+
+![Alt text](w6.22.jpg)
+
+5. Lightly doped drain(LDD) formation.
+	- Add different masks again to create N-implant in P-well and P-implant in N-well.
+ 	- Add a thick silicon dioxide layer and perform **Plasma anistropic etching**.
+
+![Alt text](w6.23.jpg)
+
+
+</details>
