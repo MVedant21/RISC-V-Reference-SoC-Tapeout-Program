@@ -3141,6 +3141,9 @@ Layour vs Schematic(LVS) - Magic and Netgen
 
 
 
+
+
+
 <details>
 <summary><b> Day2 - Good floorplan vs bad floorplan and introduction to library cells </b></summary>
 
@@ -3403,6 +3406,52 @@ The images below show the initial and final stage.
 Below is the final structure
 
 ![Alt text](w6.25.jpg)
+
+
+</details>
+
+
+
+
+
+
+
+<details>
+<summary><b> Day5 - Final steps for RTL2GDS using tritonRoute and openSTA </b></summary>
+
+# Routing and design rule check(DRC)
+
+## Lee's Algorithm
+
+Lee's algorithm is a **grid-based pathfinding algorithm** that uses a Breadth-First Search (BFS) to find the **shortest path** between a source and a target point in a maze or gridded space. It is widely used in **PCB and IC routing**.
+
+### Core Principles
+
+- **Grid-Based:** Operates on a discrete grid (2D or 3D array) where movement is restricted to adjacent cells.
+- **Optimality:** Guarantees finding a **shortest path** in terms of the number of steps (due to its BFS nature).
+- **Completeness:** Will find a path if one exists.
+
+### Working (Divided in Two Phases)
+
+1. Wave Expansion (Labeling)
+	- Starts at the **Source** cell (label 0).
+	- Expands outwards like a wave, labeling adjacent, unblocked cells with increasing integer distance values ($1, 2, 3, \ldots, N$).
+	- This phase continues until the **Target** cell is reached.
+
+2. Retrace (Backtracking)
+	- Starts at the **Target** cell.
+	- Backtracks to an adjacent cell with a label exactly one less than the current cell's label.
+	- This process continues until the path returns to the **Source** cell (label 0), tracing the shortest route.
+
+
+### Complexity & Applications
+
+| Aspect | Detail |
+| :--- | :--- |
+| **Time Complexity** | $O(MN)$ (linear to the size of the grid) |
+| **Space Complexity** | $O(MN)$ (required to store the label/distance grid) |
+| **Primary Use** | **PCB / IC Routing** to connect components without overlaps. |
+| **Limitation** | Point-to-point only; needs refinement for complex multi-connection routing. |
 
 
 </details>
