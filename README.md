@@ -1,4 +1,4 @@
-<img width="787" height="604" alt="image" src="https://github.com/user-attachments/assets/f368387a-70f5-400e-810d-1d2488b167b4" /># RISC-V-Reference-SoC-Tapeout-Program
+# RISC-V-Reference-SoC-Tapeout-Program
 
 <details>
 <summary><b> Day 0 - Tools Installation</b></summary>
