@@ -3454,4 +3454,38 @@ Lee's algorithm is a **grid-based pathfinding algorithm** that uses a Breadth-Fi
 | **Limitation** | Point-to-point only; needs refinement for complex multi-connection routing. |
 
 
+## DRC Clean
+
+Following are the typical design rule checks that are done between a pair of wires:
+- Wire width
+- Wire pitch
+- Wire spacing
+- No signal short
+- Via width
+- Via spacing
+
+Post the DRC check, Parasitics are calculated for each and every interconnect.
+
+
+
+## TritonRoute Features
+
+Below are the features:
+- Performs initial detail route.
+- Honors the preprocessed route guides (obtained after fast route) i.e., attempts as much as possible to route within route guides.
+	- Should have unit width.
+	- Should be in the preferred direction.
+- Assumes route guides for each net satisfy inter-guide connectivity.
+  	- Two guides are connected if:
+		- they are on the same metal layer with touching edges, or
+		- they are on neighboring metal layers with a nonzero vertically overlapped area.
+	- Each unconnected terminal (i.e., pin of a standard-cell instance) should have its pin shape overlapped by a route guide.
+- Works on proposed MILP-based panel routing scheme with intra-layer parallel and inter-layer sequential routing framework.
+
+### Functionality of TritonRoute in brief.
+
+- **INPUT**: LEF, DEF, Preprocessed route guides
+- **OUTPUT**: Detailed routing solution with optimized wire-length and via count
+- **CONSTRAINTS**: Route guide honoring, connectivity constraints and design rules
+
 </details>
