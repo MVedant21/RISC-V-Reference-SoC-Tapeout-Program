@@ -1,4 +1,4 @@
-# RISC-V-Reference-SoC-Tapeout-Program
+<img width="787" height="604" alt="image" src="https://github.com/user-attachments/assets/f368387a-70f5-400e-810d-1d2488b167b4" /># RISC-V-Reference-SoC-Tapeout-Program
 
 <details>
 <summary><b> Day 0 - Tools Installation</b></summary>
@@ -3387,6 +3387,22 @@ The images below show the initial and final stage.
  	- Add a thick silicon dioxide layer and perform **Plasma anistropic etching**.
 
 ![Alt text](w6.23.jpg)
+
+6. Source and Drain formation
+	- Add different masks again to create N+ implants in P-well and P+ implants in N-well. There will be some N- and P- implants left due the side wall spaces.
+ 	- Take complete structure to driving furnace so that the wells are well diffused.
+
+![Alt text](w6.24.jpg)
+
+7. Local Interconnect formation
+	- Contact holes or vias are etched through the insulating oxide to expose source, drain, and gate terminals. These vias will later be filled with metal to establish electrical connections.
+
+8. Higher level metal formation
+   	- Photolithography is used to define the desired interconnect patterns. Unwanted metal is etched away, leaving only the functional routing and connections.
+  
+Below is the final structure
+
+![Alt text](w6.25.jpg)
 
 
 </details>
